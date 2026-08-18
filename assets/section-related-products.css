@@ -1,0 +1,595 @@
+/* =========================================================
+   LUXURY RELATED PRODUCTS
+   ========================================================= */
+
+.related-products {
+  display: block;
+}
+
+.luxury-related-products {
+  width: 100%;
+}
+
+.luxury-related-products__header {
+  margin-bottom: 34px;
+}
+
+.luxury-related-products__title {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: #171717;
+}
+
+.luxury-related-products__subtitle {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #777;
+  letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   PRODUCT GRID
+   ========================================================= */
+
+.luxury-related-products__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.luxury-product-card {
+  position: relative;
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.luxury-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border-color: #dddddd;
+}
+
+
+/* =========================================================
+   IMAGE AREA
+   ========================================================= */
+
+.luxury-product-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f7f7f7;
+}
+
+.luxury-product-card__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.luxury-product-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.luxury-product-card:hover .luxury-product-card__image {
+  transform: scale(1.025);
+}
+
+.luxury-product-card__placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* =========================================================
+   DISCOUNT
+   ========================================================= */
+
+.luxury-product-card__discount {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 30px;
+  padding: 0 13px;
+
+  background: #ef5a2a;
+  color: #ffffff;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+
+  box-shadow: 0 5px 15px rgba(239, 90, 42, 0.2);
+}
+
+
+/* =========================================================
+   HEART
+   ========================================================= */
+
+.luxury-product-card__wishlist {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.94);
+  color: #171717;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.luxury-product-card__wishlist:hover {
+  transform: scale(1.06);
+  background: #ffffff;
+}
+
+.luxury-product-card__wishlist svg {
+  width: 24px;
+  height: 24px;
+}
+
+
+/* =========================================================
+   PRICE + ADD BUTTON
+   ========================================================= */
+
+.luxury-product-card__action {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 4;
+
+  min-height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 7px 8px 7px 16px;
+
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 999px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.14);
+}
+
+.luxury-product-card__price {
+  min-width: 0;
+}
+
+.luxury-product-card__current-price {
+  color: #202020;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
+
+.luxury-product-card__form {
+  margin: 0;
+}
+
+.luxury-product-card__add {
+  min-width: 76px;
+  height: 40px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  padding: 0 16px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #ef5a2a;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 14px rgba(239, 90, 42, 0.25);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.luxury-product-card__add:hover {
+  background: #df4e21;
+  transform: translateY(-1px);
+}
+
+.luxury-product-card__add:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.luxury-product-card__add-icon {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION
+   ========================================================= */
+
+.luxury-product-card__info {
+  padding: 14px 16px 16px;
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   TOP ROW
+   ========================================================= */
+
+.luxury-product-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 7px;
+}
+
+.luxury-product-card__vendor {
+  color: #ef5a2a;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.luxury-product-card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 6px 9px;
+
+  background: #fff8ed;
+  border-radius: 999px;
+
+  color: #d98b20;
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.luxury-product-card__star {
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.luxury-product-card__title {
+  display: block;
+
+  margin: 0;
+
+  color: #171717;
+  text-decoration: none;
+
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 600;
+
+  min-height: 35px;
+
+  transition: color 0.2s ease;
+}
+
+.luxury-product-card__title:hover {
+  color: #ef5a2a;
+}
+
+
+/* =========================================================
+   BOTTOM ROW
+   ========================================================= */
+
+.luxury-product-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  margin-top: 10px;
+  padding-top: 10px;
+
+  border-top: 1px solid #eeeeee;
+}
+
+.luxury-product-card__availability {
+  color: #15946f;
+
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.luxury-product-card__availability--soldout {
+  color: #d94b4b;
+}
+
+
+/* =========================================================
+   COLOR DOTS
+   ========================================================= */
+
+.luxury-product-card__dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.luxury-product-card__dot {
+  width: 14px;
+  height: 14px;
+
+  display: block;
+
+  border-radius: 50%;
+}
+
+.luxury-product-card__dot--active {
+  background: #ffffff;
+  border: 2px solid #ef5a2a;
+  box-shadow: 0 0 0 1px #ffffff;
+}
+
+.luxury-product-card__dot--dark {
+  background: #171717;
+}
+
+.luxury-product-card__dot--green {
+  background: #075c4c;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media screen and (max-width: 989px) {
+
+  .luxury-related-products__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .luxury-product-card__action {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .luxury-product-card__wishlist {
+    width: 46px;
+    height: 46px;
+  }
+
+  .luxury-product-card__discount {
+    top: 12px;
+    left: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 749px) {
+
+  .luxury-related-products {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .luxury-related-products__header {
+    margin-bottom: 24px;
+  }
+
+  .luxury-related-products__title {
+    font-size: 26px;
+  }
+
+  .luxury-related-products__subtitle {
+    font-size: 13px;
+  }
+
+  .luxury-related-products__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .luxury-product-card {
+    border-radius: 13px;
+  }
+
+  .luxury-product-card__media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .luxury-product-card__discount {
+    top: 9px;
+    left: 9px;
+
+    min-height: 26px;
+    padding: 0 9px;
+
+    font-size: 9px;
+  }
+
+  .luxury-product-card__wishlist {
+    top: 8px;
+    right: 8px;
+
+    width: 40px;
+    height: 40px;
+  }
+
+  .luxury-product-card__wishlist svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .luxury-product-card__action {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+
+    min-height: 44px;
+
+    padding: 5px 6px 5px 11px;
+  }
+
+  .luxury-product-card__current-price {
+    font-size: 12px;
+  }
+
+  .luxury-product-card__add {
+    min-width: 58px;
+    height: 34px;
+
+    padding: 0 10px;
+
+    font-size: 11px;
+  }
+
+  .luxury-product-card__add-icon {
+    font-size: 17px;
+  }
+
+  .luxury-product-card__info {
+    padding: 11px 11px 12px;
+  }
+
+  .luxury-product-card__vendor {
+    font-size: 8px;
+  }
+
+  .luxury-product-card__rating {
+    padding: 5px 7px;
+    font-size: 8px;
+  }
+
+  .luxury-product-card__title {
+    font-size: 11px;
+    min-height: 30px;
+  }
+
+  .luxury-product-card__bottom {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  .luxury-product-card__availability {
+    font-size: 8px;
+  }
+
+  .luxury-product-card__dot {
+    width: 11px;
+    height: 11px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 480px) {
+
+  .luxury-related-products__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .luxury-product-card__media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .luxury-product-card__title {
+    font-size: 13px;
+  }
+
+  .luxury-product-card__availability {
+    font-size: 9px;
+  }
+
+}

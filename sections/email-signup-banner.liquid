@@ -1,0 +1,404 @@
+{%- comment -%}
+  Section: Modern Email Signup Banner (Full Width Background Edition)
+{%- endcomment -%}
+
+{%- style -%}
+#section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  background: linear-gradient(135deg, #F5F6FF 0%, #EDEFFC 100%);
+  border-top: 1px solid rgba(229, 232, 240, 0.8);
+  border-bottom: 1px solid rgba(229, 232, 240, 0.8);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.ds-newsletter-v2__content {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Floating Icon Badge */
+.ds-newsletter-v2__icon-badge {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #121316;
+  color: #FFFFFF;
+  box-shadow: 0 10px 28px rgba(18, 19, 22, 0.18);
+  margin-bottom: 0.25rem;
+  transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-newsletter-v2__content:hover .ds-newsletter-v2__icon-badge {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.ds-newsletter-v2__icon-badge svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Eyebrow Tag */
+.ds-newsletter-v2__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(18, 19, 22, 0.06);
+  color: #121316;
+}
+
+/* Heading & Subheading */
+.ds-newsletter-v2__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.15rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+  color: #121316;
+}
+
+.ds-newsletter-v2__heading span {
+  color: #FF5A36;
+  background: linear-gradient(135deg, #FF6B4A 0%, #E05338 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ds-newsletter-v2__subheading {
+  font-family: var(--font-body);
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 580px;
+  margin: 0;
+  color: #555B68;
+}
+
+/* Unified Pill Input Form Container */
+.ds-newsletter-v2__form-wrapper {
+  width: 100%;
+  max-width: 580px;
+  margin-top: 0.75rem;
+}
+
+.ds-newsletter-v2__pill-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  padding: 7px 7px 7px 22px;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E8F0;
+  box-shadow: 0 10px 36px rgba(18, 19, 22, 0.06);
+  transition: all 300ms ease;
+}
+
+.ds-newsletter-v2__pill-group:focus-within {
+  border-color: #121316;
+  box-shadow: 0 14px 44px rgba(18, 19, 22, 0.12);
+}
+
+.ds-newsletter-v2__input-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-right: 14px;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+}
+
+.ds-newsletter-v2__input {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 0;
+  width: 100%;
+  color: #121316;
+}
+
+.ds-newsletter-v2__input::placeholder {
+  color: #94A3B8;
+}
+
+.ds-newsletter-v2__submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.95rem 2.15rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background: #121316;
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-newsletter-v2__submit-btn:hover {
+  background: var(--color-accent-gold, #C9A96E);
+  color: #FFFFFF;
+  transform: scale(1.04);
+  box-shadow: 0 10px 24px rgba(201, 169, 110, 0.35);
+}
+
+.ds-newsletter-v2__submit-btn svg {
+  transition: transform 300ms ease;
+}
+
+.ds-newsletter-v2__submit-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Success State */
+.ds-newsletter-v2__success {
+  background: #ECFDF5;
+  border: 1px solid #10B981;
+  color: #10B981;
+  padding: 1.15rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Perks Strip */
+.ds-newsletter-v2__perks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.ds-newsletter-v2__perk-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ds-newsletter-v2__dot {
+  color: #CBD5E1;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 639px) {
+  .ds-newsletter-v2__pill-group {
+    flex-direction: column;
+    padding: 12px;
+    border-radius: 24px;
+    gap: 10px;
+  }
+  .ds-newsletter-v2__input-icon {
+    display: none;
+  }
+  .ds-newsletter-v2__input {
+    text-align: center;
+    padding: 10px 0;
+  }
+  .ds-newsletter-v2__submit-btn {
+    width: 100%;
+  }
+}
+{%- endstyle -%}
+
+<section class="ds-newsletter-v2" id="section-{{ section.id }}">
+  <div class="ds-container">
+    <div class="ds-newsletter-v2__content">
+      {%- comment -%} Floating Circular Icon Badge {%- endcomment -%}
+      <div class="ds-newsletter-v2__icon-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </div>
+
+      {%- comment -%} Eyebrow Tag {%- endcomment -%}
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="ds-newsletter-v2__eyebrow">
+          <span>✦</span> {{ section.settings.eyebrow | escape }} <span>✦</span>
+        </span>
+      {%- endif -%}
+
+      {%- comment -%} Heading {%- endcomment -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ds-newsletter-v2__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- comment -%} Subheading {%- endcomment -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="ds-newsletter-v2__subheading">
+          {{ section.settings.subheading | escape }}
+        </p>
+      {%- endif -%}
+
+      {%- comment -%} Pill Form Wrapper {%- endcomment -%}
+      <div class="ds-newsletter-v2__form-wrapper">
+        {%- form 'customer', class: 'ds-newsletter-v2__form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          {%- if form.posted_successfully? -%}
+            <div class="ds-newsletter-v2__success" role="alert">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>🎉 Thank you! Check your inbox for your 10% discount code.</span>
+            </div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="ds-form-error" style="color: #FF4D4D; margin-bottom: 8px; font-size: 13px; font-weight: 600;">
+                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+              </p>
+            {%- endif -%}
+
+            <div class="ds-newsletter-v2__pill-group">
+              <span class="ds-newsletter-v2__input-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <input
+                type="email"
+                name="contact[email]"
+                class="ds-newsletter-v2__input"
+                value="{{ form.email }}"
+                placeholder="{{ section.settings.placeholder_text | default: 'Enter your email address...' }}"
+                aria-label="Enter your email address"
+                required
+                autocorrect="off"
+                autocapitalize="off"
+              >
+              <button
+                type="submit"
+                class="ds-newsletter-v2__submit-btn"
+                name="commit"
+              >
+                <span>{{ section.settings.button_label | default: 'Subscribe' }}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      {%- comment -%} Perks Strip {%- endcomment -%}
+      <div class="ds-newsletter-v2__perks">
+        <span class="ds-newsletter-v2__perk-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Instant 10% Off Code
+        </span>
+        <span class="ds-newsletter-v2__dot">•</span>
+        <span class="ds-newsletter-v2__perk-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          No Spam Guarantee
+        </span>
+        <span class="ds-newsletter-v2__dot">•</span>
+        <span class="ds-newsletter-v2__perk-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          VIP Drop Access
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Email Signup Banner",
+  "tag": "section",
+  "class": "section-email-signup-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "JOIN THE CLUB"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading (supports HTML <span> for gradient)",
+      "default": "Get <span>10% Off</span> Your First Order"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Subscribe to receive exclusive deals, new collection drops, and insider style tips."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Input placeholder",
+      "default": "Enter your email address..."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Email Signup Banner"
+    }
+  ]
+}
+{% endschema %}

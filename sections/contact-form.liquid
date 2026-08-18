@@ -1,0 +1,329 @@
+{{ 'contact-modern.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .contact-modern-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-modern-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="contact-modern contact-modern-{{ section.id }}">
+  <div class="cm-container">
+
+    <!-- HEADER -->
+    <header class="cm-header">
+      <span class="cm-eyebrow">Get In Touch</span>
+
+      <h1 class="cm-heading">
+        {%- if section.settings.heading != blank -%}
+          {{ section.settings.heading }}
+        {%- else -%}
+          Let's Talk
+        {%- endif -%}
+      </h1>
+
+      <p class="cm-intro">
+        Whether you have a question about an order, need help choosing
+        the right product, or simply want to say hello — we're here.
+      </p>
+    </header>
+
+    <!-- MAIN CARD -->
+    <div class="cm-card">
+
+      <!-- INFORMATION PANEL -->
+      <div class="cm-info">
+
+        <div class="cm-info__top">
+
+          <div class="cm-info__number">CONTACT / 01</div>
+
+          <h2 class="cm-info__title">
+            We'd love<br>
+            to hear from you.
+          </h2>
+
+          <p class="cm-info__description">
+            Our team is here to help with questions, orders,
+            product information and anything else you may need.
+          </p>
+
+        </div>
+
+        <div class="cm-details">
+
+          <!-- EMAIL -->
+          <div class="cm-detail">
+            <span class="cm-detail__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+              </svg>
+            </span>
+            <div>
+              <span class="cm-detail__label">Email</span>
+              <span class="cm-detail__value">{{ shop.email }}</span>
+            </div>
+          </div>
+
+          <!-- STORE -->
+          <div class="cm-detail">
+            <span class="cm-detail__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10h18"/>
+                <path d="M5 10v9h14v-9"/>
+                <path d="M4 10 5.5 4h13L20 10"/>
+                <path d="M9 19v-5h6v5"/>
+              </svg>
+            </span>
+            <div>
+              <span class="cm-detail__label">Store</span>
+              <span class="cm-detail__value">{{ shop.name }}</span>
+            </div>
+          </div>
+
+          <!-- RESPONSE TIME -->
+          <div class="cm-detail">
+            <span class="cm-detail__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 2"/>
+              </svg>
+            </span>
+            <div>
+              <span class="cm-detail__label">Response Time</span>
+              <span class="cm-detail__value">Within 24 hours</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="cm-form-panel">
+        <div class="cm-form-wrapper">
+
+          {%- form 'contact', id: 'ContactForm', class: 'cm-form' -%}
+
+            {%- if form.posted_successfully? -%}
+
+              <div class="cm-success" tabindex="-1" autofocus>
+                <span class="cm-success__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </span>
+                <div>
+                  <strong>Message sent successfully.</strong>
+                  <p>{{ 'templates.contact.form.post_success' | t }}</p>
+                </div>
+              </div>
+
+            {%- else -%}
+
+              <!-- FORM HEADER -->
+              <div class="cm-form-top">
+                <h2 class="cm-form-title">Send a message</h2>
+                <span class="cm-required-note">* Required</span>
+              </div>
+
+              <!-- FORM ERROR -->
+              {%- if form.errors -%}
+                <span class="cm-error" role="alert" tabindex="-1" autofocus>
+                  {{ form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email }}
+                </span>
+              {%- endif -%}
+
+              <!-- NAME + EMAIL -->
+              <div class="cm-form-row">
+
+                <div class="cm-field">
+                  <label class="cm-field__label" for="ContactForm-name">Name</label>
+                  <input
+                    class="cm-input"
+                    autocomplete="name"
+                    type="text"
+                    id="ContactForm-name"
+                    name="contact[{{ 'templates.contact.form.name' | t }}]"
+                    value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                    placeholder="Your name"
+                  >
+                </div>
+
+                <div class="cm-field{% if form.errors contains 'email' %} cm-field--error{% endif %}">
+                  <label class="cm-field__label" for="ContactForm-email">
+                    Email <span class="cm-required">*</span>
+                  </label>
+                  <input
+                    class="cm-input"
+                    autocomplete="email"
+                    type="email"
+                    id="ContactForm-email"
+                    name="contact[email]"
+                    spellcheck="false"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    aria-required="true"
+                    {% if form.errors contains 'email' %}
+                      aria-invalid="true"
+                      aria-describedby="ContactForm-email-error"
+                    {% endif %}
+                    placeholder="your@email.com"
+                  >
+                  {%- if form.errors contains 'email' -%}
+                    <small class="cm-error" id="ContactForm-email-error">
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </small>
+                  {%- endif -%}
+                </div>
+
+              </div>
+
+              <!-- PHONE -->
+              <div class="cm-field">
+                <label class="cm-field__label" for="ContactForm-phone">Phone</label>
+                <input
+                  class="cm-input"
+                  type="tel"
+                  id="ContactForm-phone"
+                  autocomplete="tel"
+                  name="contact[{{ 'templates.contact.form.phone' | t }}]"
+                  value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                  placeholder="+1 000 000 0000"
+                >
+              </div>
+
+              <!-- MESSAGE -->
+              <div class="cm-field">
+                <label class="cm-field__label" for="ContactForm-body">Message</label>
+                <textarea
+                  rows="5"
+                  id="ContactForm-body"
+                  class="cm-input cm-textarea"
+                  name="contact[{{ 'templates.contact.form.comment' | t }}]"
+                  placeholder="How can we help?"
+                >{{- form.body -}}</textarea>
+              </div>
+
+              <!-- FORM FOOTER -->
+              <div class="cm-form-footer">
+                <p class="cm-privacy">
+                  Your information is secure and will only be used
+                  to respond to your enquiry.
+                </p>
+
+                <button type="submit" class="cm-submit" id="ContactForm-submit">
+                  <span class="cm-submit__text">Send Message</span>
+                  <svg class="cm-submit__arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                  <svg class="cm-submit__spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+                    <path d="M12 2a10 10 0 0 1 10 10"/>
+                  </svg>
+                </button>
+              </div>
+
+            {%- endif -%}
+
+          {%- endform -%}
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Modern Contact Form",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Let's Talk",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra Large" },
+        { "value": "hxxl", "label": "Huge" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Modern Contact Form"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  (function () {
+    var form = document.getElementById('ContactForm');
+    var btn  = document.getElementById('ContactForm-submit');
+
+    if (!form || !btn) return;
+
+    form.addEventListener('submit', function () {
+      btn.classList.add('cm-submit--loading');
+      btn.disabled = true;
+    });
+  })();
+</script>

@@ -1,0 +1,847 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.image_shape == 'blob' %}
+  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+{%- unless section.settings.quick_add == 'none' -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+{%- endunless -%}
+
+{%- if section.settings.quick_add == 'standard' -%}
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- if section.settings.quick_add == 'bulk' -%}
+  <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+
+{%- style -%}
+
+  /* =========================================================
+     COLLECTION PAGE
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} {
+    --lux-orange: #ef5b2a;
+    --lux-dark: #101113;
+    --lux-green: #075542;
+    --lux-border: #e7e7e7;
+    --lux-light: #f8f8f7;
+    --lux-radius: 16px;
+
+    background: #ffffff;
+  }
+
+  .lux-collection-{{ section.id }} .lux-collection-inner {
+    width: min(100% - 48px, 1440px);
+    margin: 0 auto;
+  }
+
+
+  /* =========================================================
+     COLLECTION HEADER
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .lux-collection-header {
+    text-align: center;
+    padding: 48px 0 30px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-collection-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+
+    color: var(--lux-orange);
+    margin-bottom: 12px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-collection-title {
+    margin: 0;
+    color: var(--lux-dark);
+
+    font-size: clamp(32px, 4vw, 54px);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -.035em;
+  }
+
+  .lux-collection-{{ section.id }} .lux-collection-description {
+    max-width: 680px;
+    margin: 15px auto 0;
+
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+
+  /* =========================================================
+     TOOLBAR
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .lux-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+    padding: 18px 0;
+
+    border-top: 1px solid var(--lux-border);
+    border-bottom: 1px solid var(--lux-border);
+
+    margin-bottom: 26px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-toolbar-left,
+  .lux-collection-{{ section.id }} .lux-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-toolbar-label {
+    color: #777;
+    font-size: 13px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-toolbar-select {
+    appearance: none;
+    min-width: 145px;
+
+    border: 0;
+    background: transparent;
+
+    color: var(--lux-dark);
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    outline: none;
+
+    padding-right: 22px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .lux-collection-{{ section.id }} .lux-select-wrapper::after {
+    content: "⌄";
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-55%);
+
+    pointer-events: none;
+    color: #555;
+    font-size: 14px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-product-count {
+    color: #888;
+    font-size: 12px;
+  }
+
+
+  /* =========================================================
+     FILTER BUTTON
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .lux-filter-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    border: 1px solid var(--lux-border);
+    border-radius: 999px;
+
+    background: #fff;
+    color: var(--lux-dark);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+  }
+
+  .lux-collection-{{ section.id }} .lux-filter-button:hover {
+    border-color: var(--lux-dark);
+  }
+
+  .lux-collection-{{ section.id }} .lux-filter-icon {
+    width: 15px;
+    height: 15px;
+    display: inline-flex;
+  }
+
+
+  /* =========================================================
+     PRODUCT GRID
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .lux-product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(
+      {{ section.settings.columns_desktop }},
+      minmax(0, 1fr)
+    );
+
+    gap: 20px;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+
+  /* =========================================================
+     PRODUCT ITEM
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .lux-product-item {
+    min-width: 0;
+  }
+
+  .lux-collection-{{ section.id }} .lux-product-card-wrapper {
+    height: 100%;
+  }
+
+
+  /* =========================================================
+     EMPTY COLLECTION
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .lux-empty {
+    text-align: center;
+    padding: 100px 20px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-empty-title {
+    margin: 0 0 12px;
+
+    color: var(--lux-dark);
+
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .lux-collection-{{ section.id }} .lux-empty-text {
+    color: #777;
+    font-size: 14px;
+  }
+
+  .lux-collection-{{ section.id }} .lux-empty-link {
+    display: inline-flex;
+    margin-top: 20px;
+
+    padding: 12px 22px;
+
+    border-radius: 999px;
+
+    background: var(--lux-dark);
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+
+  /* =========================================================
+     PAGINATION
+     ========================================================= */
+
+  .lux-collection-{{ section.id }} .pagination {
+    margin-top: 55px;
+  }
+
+
+  /* =========================================================
+     TABLET
+     ========================================================= */
+
+  @media screen and (max-width: 990px) {
+
+    .lux-collection-{{ section.id }} .lux-product-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .lux-collection-{{ section.id }} .lux-collection-inner {
+      width: min(100% - 32px, 900px);
+    }
+
+  }
+
+
+  /* =========================================================
+     MOBILE
+     ========================================================= */
+
+  @media screen and (max-width: 749px) {
+
+    .lux-collection-{{ section.id }} .lux-collection-inner {
+      width: calc(100% - 24px);
+    }
+
+    .lux-collection-{{ section.id }} .lux-collection-header {
+      padding: 32px 0 22px;
+    }
+
+    .lux-collection-{{ section.id }} .lux-collection-title {
+      font-size: 34px;
+    }
+
+    .lux-collection-{{ section.id }} .lux-collection-description {
+      font-size: 13px;
+    }
+
+    .lux-collection-{{ section.id }} .lux-toolbar {
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .lux-collection-{{ section.id }} .lux-toolbar-left,
+    .lux-collection-{{ section.id }} .lux-toolbar-right {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .lux-collection-{{ section.id }} .lux-product-grid {
+      grid-template-columns: repeat(
+        {{ section.settings.columns_mobile }},
+        minmax(0, 1fr)
+      );
+
+      gap: 12px;
+    }
+
+  }
+
+
+  @media screen and (max-width: 480px) {
+
+    .lux-collection-{{ section.id }} .lux-product-grid {
+      gap: 10px;
+    }
+
+    .lux-collection-{{ section.id }} .lux-toolbar-select {
+      min-width: 120px;
+    }
+
+  }
+
+{%- endstyle -%}
+
+
+<collection-component
+  view-event-payload="{{ collection | standard_event_data: 'view' | escape }}"
+  data-collection-id="{{ collection.id }}"
+>
+
+  <div class="lux-collection-{{ section.id }}">
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+
+      <div class="lux-collection-inner">
+
+
+        {%- comment -%}
+        =====================================================
+        COLLECTION HEADER
+        =====================================================
+        {%- endcomment -%}
+
+        <header class="lux-collection-header">
+
+          {% if section.settings.show_eyebrow %}
+            <div class="lux-collection-eyebrow">
+              <span>✦</span>
+
+              {% if collection.handle == 'all' %}
+                {{ section.settings.eyebrow_text }}
+              {% else %}
+                {{ collection.title }}
+              {% endif %}
+
+              <span>✦</span>
+            </div>
+          {% endif %}
+
+          <h1 class="lux-collection-title">
+            {% if collection.handle == 'all' %}
+              {{ section.settings.collection_title }}
+            {% else %}
+              {{ collection.title }}
+            {% endif %}
+          </h1>
+
+          {% if collection.description != blank %}
+            <div class="lux-collection-description">
+              {{ collection.description }}
+            </div>
+          {% elsif section.settings.collection_description != blank %}
+            <div class="lux-collection-description">
+              {{ section.settings.collection_description }}
+            </div>
+          {% endif %}
+
+        </header>
+
+
+
+
+        {%- comment -%}
+        =====================================================
+        SHOPIFY FACETS
+        =====================================================
+        Dynamic filters remain active.
+        =====================================================
+        {%- endcomment -%}
+
+        {% if section.settings.enable_filtering or section.settings.enable_sorting %}
+
+          <div
+            id="main-collection-filters-{{ section.id }}"
+            class="lux-facets-container"
+          >
+
+            {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+
+            <script
+              src="{{ 'facets.js' | asset_url }}"
+              defer="defer"
+            ></script>
+
+            {% render 'facets',
+              results: collection,
+              enable_filtering: section.settings.enable_filtering,
+              enable_sorting: section.settings.enable_sorting,
+              filter_type: 'drawer',
+              paginate: paginate
+            %}
+
+          </div>
+
+        {% endif %}
+
+
+        {%- comment -%}
+        =====================================================
+        PRODUCT GRID
+        =====================================================
+        =====================================================
+        IMPORTANT:
+        Products are completely dynamic.
+        =====================================================
+        {%- endcomment -%}
+
+        <div
+          id="ProductGridContainer"
+          class="product-grid-container"
+        >
+
+          {% if collection.products.size == 0 %}
+
+            <div class="lux-empty">
+
+              <h2 class="lux-empty-title">
+                No products found
+              </h2>
+
+              <div class="lux-empty-text">
+                Try removing some filters or browse all products.
+              </div>
+
+              <a
+                href="{{ collection.url }}"
+                class="lux-empty-link"
+              >
+                View all products
+              </a>
+
+            </div>
+
+          {% else %}
+
+            <ul
+              id="product-grid"
+              data-id="{{ section.id }}"
+              class="lux-product-grid"
+            >
+
+              {% assign skip_card_product_styles = false %}
+
+              {% for product in collection.products %}
+
+                {% assign lazy_load = false %}
+
+                {% if forloop.index > 4 %}
+                  {% assign lazy_load = true %}
+                {% endif %}
+
+
+                <li
+                  class="lux-product-item"
+                  data-product-id="{{ product.id }}"
+                >
+
+                  <div class="lux-product-card-wrapper">
+
+                    {% render 'product-card',
+                      product: product,
+                      lazy: lazy_load
+                    %}
+
+                  </div>
+
+                </li>
+
+                {% assign skip_card_product_styles = true %}
+
+              {% endfor %}
+
+            </ul>
+
+
+            {%- comment -%}
+            =================================================
+            PAGINATION
+            =================================================
+            =================================================
+            {%- endcomment -%}
+
+            {% if paginate.pages > 1 %}
+
+              {% render 'pagination',
+                paginate: paginate,
+                anchor: ''
+              %}
+
+            {% endif %}
+
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    {%- endpaginate -%}
+
+  </div>
+
+</collection-component>
+
+
+{% schema %}
+
+{
+  "name": "Luxury Collection Grid",
+
+  "class": "section",
+
+  "settings": [
+
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 16,
+      "label": "Products per page"
+    },
+
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
+    },
+
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Mobile columns",
+
+      "options": [
+
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+
+      ]
+    },
+
+
+    {
+      "type": "header",
+      "content": "Collection Header"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "default": true,
+      "label": "Show eyebrow"
+    },
+
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "default": "Curated for you",
+      "label": "Eyebrow text"
+    },
+
+    {
+      "type": "text",
+      "id": "collection_title",
+      "default": "All Products",
+      "label": "All products title"
+    },
+
+    {
+      "type": "textarea",
+      "id": "collection_description",
+      "default": "Discover our latest products, carefully selected for everyday living.",
+      "label": "Collection description"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Product Images"
+    },
+
+    {
+      "type": "select",
+      "id": "image_ratio",
+
+      "options": [
+
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+
+        {
+          "value": "square",
+          "label": "Square"
+        }
+
+      ],
+
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+
+
+    {
+      "type": "select",
+      "id": "image_shape",
+
+      "options": [
+
+        {
+          "value": "default",
+          "label": "Default"
+        },
+
+        {
+          "value": "arch",
+          "label": "Arch"
+        },
+
+        {
+          "value": "blob",
+          "label": "Blob"
+        },
+
+        {
+          "value": "chevronleft",
+          "label": "Chevron left"
+        },
+
+        {
+          "value": "chevronright",
+          "label": "Chevron right"
+        },
+
+        {
+          "value": "diamond",
+          "label": "Diamond"
+        },
+
+        {
+          "value": "parallelogram",
+          "label": "Parallelogram"
+        },
+
+        {
+          "value": "round",
+          "label": "Round"
+        }
+
+      ],
+
+      "default": "default",
+      "label": "Image shape"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": true,
+      "label": "Show secondary image"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": true,
+      "label": "Show vendor"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": true,
+      "label": "Show rating"
+    },
+
+
+    {
+      "type": "select",
+      "id": "quick_add",
+
+      "default": "standard",
+
+      "label": "Quick add",
+
+      "options": [
+
+        {
+          "value": "none",
+          "label": "None"
+        },
+
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+
+        {
+          "value": "bulk",
+          "label": "Bulk"
+        }
+
+      ]
+    },
+
+
+    {
+      "type": "header",
+      "content": "Filtering & Sorting"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "Enable filtering"
+    },
+
+
+    {
+      "type": "select",
+      "id": "filter_type",
+
+      "options": [
+
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        },
+
+        {
+          "value": "drawer",
+          "label": "Drawer"
+        }
+
+      ],
+
+      "default": "drawer",
+
+      "label": "Filter layout"
+    },
+
+
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "Enable sorting"
+    },
+
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+
+
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+
+  ]
+}
+
+{% endschema %}

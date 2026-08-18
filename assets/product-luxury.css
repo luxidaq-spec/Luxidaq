@@ -1,0 +1,249 @@
+/* ============================================================
+   LUXURY PRODUCT DETAILS PAGE OVERRIDES
+   ============================================================ */
+
+/* ── LAYOUT FIXES ── */
+.product {
+  max-width: 1380px;
+  margin: 0 auto;
+  gap: 60px !important;
+}
+
+@media screen and (min-width: 900px) {
+  .product:not(.product--no-media) {
+    display: flex;
+    flex-wrap: nowrap !important;
+    align-items: flex-start;
+  }
+  
+  .product:not(.product--no-media) .product__media-wrapper {
+    max-width: calc(55% - 30px) !important;
+    width: calc(55% - 30px) !important;
+  }
+
+  .product:not(.product--no-media) .product__info-wrapper {
+    max-width: calc(45% - 30px) !important;
+    width: calc(45% - 30px) !important;
+    padding: 0 !important;
+  }
+}
+
+/* ── STICKY INFO PANEL ── */
+@media screen and (min-width: 750px) {
+  .product__info-container {
+    position: sticky;
+    top: 40px;
+    padding-bottom: 60px;
+  }
+}
+
+/* ── TYPOGRAPHY ── */
+
+/* Vendor */
+.product__text.caption-with-letter-spacing {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ef5b2a; /* Luxidaq orange */
+  margin-bottom: 8px;
+}
+
+/* Title */
+.product__title h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #101113;
+  margin: 0 0 16px;
+}
+
+/* Price */
+.price--large {
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 500;
+  color: #101113;
+  margin-bottom: 30px;
+}
+.price__sale .price-item--sale {
+  color: #ef5b2a;
+}
+.price__sale .price-item--regular {
+  font-size: 16px;
+  color: #999;
+}
+
+/* Description */
+.product__description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #666;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* ── VARIANT PICKER ── */
+.product-form__input .form__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+/* Swatches/Buttons */
+.product-form__input input[type=radio] + label {
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #f8f8f7;
+  border: 1px solid #e7e7e7;
+  color: #101113;
+  transition: all 0.2s ease;
+}
+
+.product-form__input input[type=radio]:checked + label {
+  background: #101113;
+  border-color: #101113;
+  color: #ffffff;
+}
+
+.product-form__input input[type=radio]:not(:checked) + label:hover {
+  border-color: #101113;
+}
+
+/* ── QUANTITY SELECTOR ── */
+.quantity {
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid #e7e7e7;
+  background: #f8f8f7;
+}
+.quantity__input {
+  font-weight: 600;
+  font-size: 14px;
+}
+.quantity__button {
+  color: #555;
+}
+
+/* ── BUY BUTTONS ── */
+.product-form__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.product-form__submit {
+  min-height: 54px;
+  border-radius: 999px;
+  background: #101113;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(16,17,19,0.15);
+}
+
+.product-form__submit:hover {
+  background: #2a2a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16,17,19,0.2);
+}
+
+/* Dynamic checkout (Shop Pay / PayPal) */
+.shopify-payment-button__button--unbranded {
+  min-height: 54px !important;
+  border-radius: 999px !important;
+  background: #ef5b2a !important;
+  color: #fff !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.shopify-payment-button__button--unbranded:hover {
+  background: #d84b1d !important;
+}
+
+/* ── ACCORDIONS ── */
+.accordion {
+  border-top: 1px solid #e7e7e7 !important;
+  border-bottom: none !important;
+  margin-top: 0;
+}
+.accordion:last-child {
+  border-bottom: 1px solid #e7e7e7 !important;
+}
+.accordion__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #101113;
+}
+.accordion__content {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── IMAGE GALLERY ── */
+.product__media-list {
+  gap: 20px;
+}
+.product__media-item {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* ── MODAL OVERFLOW FIX ── */
+.product-media-modal__content img,
+.product-media-modal__content video,
+.product-media-modal__content model-viewer {
+  max-height: 95vh !important;
+  max-width: 95vw !important;
+  object-fit: contain !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 auto;
+}
+
+/* ── SLIDER BUTTONS (GLASSY) ── */
+.slider-button {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  border-radius: 50% !important;
+  color: #101113 !important;
+  transition: all 0.3s ease !important;
+}
+
+.slider-button:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  transform: scale(1.1) !important;
+}
+
+/* ── DESCRIPTION IMAGES FIX ── */
+/* 
+  Merchants often accidentally paste images into the description text editor. 
+  Since images belong on the left side (in the gallery), we hide them from the text area on the right. 
+*/
+.product__description img,
+.product__description iframe {
+  display: none !important;
+}
+

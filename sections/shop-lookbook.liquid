@@ -1,0 +1,493 @@
+{%- comment -%}
+  Section: Shop the Lookbook — Editorial Mosaic + Hotspot Edition
+  Layout: Dark full-width asymmetric 3-cell mosaic with animated hotspot product tags
+  Feel: SSENSE, Farfetch, Mr Porter — immersive, editorial, premium
+{%- endcomment -%}
+
+<section class="ds-lb-section ds-section" id="section-{{ section.id }}">
+  <div class="ds-container">
+
+    {%- comment -%} Header Row {%- endcomment -%}
+    <div class="ds-lb__header">
+      <span class="ds-lb__eyebrow">✶ {{ section.settings.eyebrow | default: 'Style Edit' }} ✶</span>
+      <h2 class="ds-lb__title">{{ section.settings.title | default: 'Shop the Lookbook' }}</h2>
+      <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="ds-lb__view-all">
+        {{ section.settings.cta_label | default: 'View All' }}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+    {%- comment -%} Mosaic Grid {%- endcomment -%}
+    <div class="ds-lb__mosaic">
+
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign product = all_products[block.settings.product] -%}
+          {%- assign img_idx = forloop.index0 | modulo: 3 -%}
+          {%- assign fb1 = 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&auto=format&fit=crop&q=85' -%}
+          {%- assign fb2 = 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85' -%}
+          {%- assign fb3 = 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&auto=format&fit=crop&q=85' -%}
+          {%- if img_idx == 0 -%}{%- assign fbimg = fb1 -%}
+          {%- elsif img_idx == 1 -%}{%- assign fbimg = fb2 -%}
+          {%- else -%}{%- assign fbimg = fb3 -%}{%- endif -%}
+          {%- assign hx = block.settings.hotspot_x | default: 50 -%}
+          {%- assign hy = block.settings.hotspot_y | default: 65 -%}
+          {%- assign is_last = forloop.last -%}
+
+          <div class="ds-lb__cell{% if is_last %} ds-lb__cell--wide{% endif %}" {{ block.shopify_attributes }}>
+
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 900 }}" class="ds-lb__img" loading="lazy" alt="{{ block.settings.badge_label | default: 'Lookbook' | escape }}">
+            {%- elsif product != blank and product.featured_image != blank -%}
+              <img src="{{ product.featured_image | image_url: width: 900 }}" class="ds-lb__img" loading="lazy" alt="{{ product.title | escape }}">
+            {%- else -%}
+              <img src="{{ fbimg }}" class="ds-lb__img" loading="lazy" alt="{{ block.settings.badge_label | default: 'Lookbook' | escape }}">
+            {%- endif -%}
+
+            <div class="ds-lb__gradient"></div>
+
+            {%- if block.settings.badge_label != blank -%}
+              <span class="ds-lb__badge">{{ block.settings.badge_label }}</span>
+            {%- endif -%}
+
+            <div class="ds-lb__hotspot" style="left:{{ hx }}%;top:{{ hy }}%;">
+              <div class="ds-lb__dot"></div>
+              <div class="ds-lb__pill">
+                {%- if product != blank -%}
+                  <div class="ds-lb__pill-info">
+                    <span class="ds-lb__pill-name">{{ product.title | truncate: 22 }}</span>
+                    <span class="ds-lb__pill-price">{{ product.price | money }}</span>
+                  </div>
+                  <a href="{{ product.url }}" class="ds-lb__pill-btn">Shop</a>
+                {%- else -%}
+                  <div class="ds-lb__pill-info">
+                    <span class="ds-lb__pill-name">{{ block.settings.badge_label | default: 'View Item' }}</span>
+                  </div>
+                  <a href="/collections/all" class="ds-lb__pill-btn">Shop</a>
+                {%- endif -%}
+              </div>
+            </div>
+
+          </div>
+        {%- endfor -%}
+
+      {%- else -%}
+
+        <div class="ds-lb__cell">
+          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&auto=format&fit=crop&q=85" class="ds-lb__img" loading="lazy" alt="New In Fashion">
+          <div class="ds-lb__gradient"></div>
+          <span class="ds-lb__badge">New In</span>
+          <div class="ds-lb__hotspot" style="left:50%;top:65%;">
+            <div class="ds-lb__dot"></div>
+            <div class="ds-lb__pill">
+              <div class="ds-lb__pill-info">
+                <span class="ds-lb__pill-name">Street Style Edit</span>
+                <span class="ds-lb__pill-price">From $49</span>
+              </div>
+              <a href="/collections/all" class="ds-lb__pill-btn">Shop</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-lb__cell">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85" class="ds-lb__img" loading="lazy" alt="Home Decor">
+          <div class="ds-lb__gradient"></div>
+          <span class="ds-lb__badge">Best Seller</span>
+          <div class="ds-lb__hotspot" style="left:45%;top:60%;">
+            <div class="ds-lb__dot"></div>
+            <div class="ds-lb__pill">
+              <div class="ds-lb__pill-info">
+                <span class="ds-lb__pill-name">Luxury Sofa Set</span>
+                <span class="ds-lb__pill-price">From $299</span>
+              </div>
+              <a href="/collections/all" class="ds-lb__pill-btn">Shop</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ds-lb__cell ds-lb__cell--wide">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1000&auto=format&fit=crop&q=85" class="ds-lb__img" loading="lazy" alt="Trending Now">
+          <div class="ds-lb__gradient"></div>
+          <span class="ds-lb__badge">Trending Now</span>
+          <div class="ds-lb__hotspot" style="left:55%;top:70%;">
+            <div class="ds-lb__dot"></div>
+            <div class="ds-lb__pill">
+              <div class="ds-lb__pill-info">
+                <span class="ds-lb__pill-name">Editorial Pick</span>
+                <span class="ds-lb__pill-price">From $89</span>
+              </div>
+              <a href="/collections/all" class="ds-lb__pill-btn">Shop</a>
+            </div>
+          </div>
+        </div>
+
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ═══════════════════════════════════════════════
+   SHOP THE LOOKBOOK — EDITORIAL MOSAIC + HOTSPOT
+   Feel: SSENSE · Farfetch · Mr Porter
+   ═══════════════════════════════════════════════ */
+.ds-lb-section {
+  background: #0E0F12;
+  padding: 5rem 0;
+}
+
+/* ━━ HEADER ROW ━━ */
+.ds-lb__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ds-lb__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-orange, #E05A2B);
+}
+
+.ds-lb__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.02em;
+  text-align: center;
+  flex: 1;
+}
+
+.ds-lb__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  transition: color 250ms ease, gap 250ms ease;
+  white-space: nowrap;
+}
+
+.ds-lb__view-all:hover {
+  color: var(--accent-orange, #E05A2B);
+  gap: 0.65rem;
+}
+
+.ds-lb__view-all svg { flex-shrink: 0; transition: transform 250ms ease; }
+.ds-lb__view-all:hover svg { transform: translateX(3px); }
+
+/* ━━ MOSAIC GRID ━━ */
+.ds-lb__mosaic {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr;
+  gap: 0.75rem;
+  height: 520px;
+}
+
+/* ━━ CELL ━━ */
+.ds-lb__cell {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ds-lb__cell--wide {
+  /* wider column set by grid already */
+}
+
+.ds-lb__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-lb__cell:hover .ds-lb__img {
+  transform: scale(1.06);
+}
+
+/* Bottom gradient overlay */
+.ds-lb__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 15, 0.7) 0%,
+    rgba(10, 10, 15, 0.15) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transition: background 350ms ease;
+}
+
+.ds-lb__cell:hover .ds-lb__gradient {
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 15, 0.78) 0%,
+    rgba(10, 10, 15, 0.22) 50%,
+    transparent 100%
+  );
+}
+
+/* Top badge */
+.ds-lb__badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border-radius: 100px;
+}
+
+/* ━━ HOTSPOT ━━ */
+.ds-lb__hotspot {
+  position: absolute;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+}
+
+/* Pulsing orange dot */
+.ds-lb__dot {
+  width: 16px;
+  height: 16px;
+  background: var(--accent-orange, #E05A2B);
+  border: 2.5px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(224, 90, 43, 0.5);
+  animation: ds-lb-pulse 2.2s ease-out infinite;
+  cursor: pointer;
+  transition: transform 250ms ease;
+}
+
+.ds-lb__hotspot:hover .ds-lb__dot {
+  transform: scale(1.2);
+}
+
+@keyframes ds-lb-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(224, 90, 43, 0.55); }
+  60%  { box-shadow: 0 0 0 10px rgba(224, 90, 43, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 90, 43, 0); }
+}
+
+/* Pill that appears on hover */
+.ds-lb__pill {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(14, 15, 18, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms ease, transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  min-width: 180px;
+}
+
+.ds-lb__hotspot:hover .ds-lb__pill {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.ds-lb__pill-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.ds-lb__pill-name {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+}
+
+.ds-lb__pill-price {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-orange, #E05A2B);
+}
+
+.ds-lb__pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 200ms ease, transform 200ms ease;
+  flex-shrink: 0;
+}
+
+.ds-lb__pill-btn:hover {
+  background: #C44A1F;
+  transform: scale(1.04);
+}
+
+/* ━━ TABLET (768–1023px) ━━ */
+@media (max-width: 1023px) {
+  .ds-lb__mosaic {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    grid-template-rows: 360px 360px;
+  }
+  .ds-lb__cell--wide {
+    grid-column: 1 / -1;
+  }
+  .ds-lb__title { font-size: 1.85rem; }
+}
+
+/* ━━ MOBILE (≤767px) ━━ */
+@media (max-width: 767px) {
+  .ds-lb-section { padding: 3rem 0; }
+  .ds-lb__mosaic {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 0.625rem;
+  }
+  .ds-lb__cell {
+    height: 280px;
+    border-radius: 12px;
+  }
+  .ds-lb__cell--wide {
+    height: 320px;
+    grid-column: auto;
+  }
+  .ds-lb__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .ds-lb__title { text-align: left; }
+  /* On mobile: tap cell to reveal pill */
+  .ds-lb__pill { display: none; }
+  .ds-lb__cell:active .ds-lb__hotspot .ds-lb__pill {
+    display: flex;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Shop the Lookbook",
+  "tag": "section",
+  "class": "section-shop-lookbook",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "Style Edit"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Shop the Lookbook"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "View All Button Label",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "View All Button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Lookbook Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Lookbook Photo"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Linked Product"
+        },
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "Badge Label",
+          "default": "New In"
+        },
+        {
+          "type": "range",
+          "id": "hotspot_x",
+          "label": "Hotspot Position (Left %)",
+          "min": 10,
+          "max": 90,
+          "step": 5,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "hotspot_y",
+          "label": "Hotspot Position (Top %)",
+          "min": 10,
+          "max": 90,
+          "step": 5,
+          "default": 65
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the Lookbook"
+    }
+  ]
+}
+{% endschema %}

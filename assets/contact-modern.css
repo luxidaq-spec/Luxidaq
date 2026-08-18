@@ -1,0 +1,750 @@
+/* ============================================================
+   MODERN CONTACT FORM — contact-modern.css
+   ============================================================ */
+
+.contact-modern {
+  --cm-bg: #f5f4f1;
+  --cm-surface: #ffffff;
+  --cm-text: #111111;
+  --cm-muted: #77736d;
+  --cm-border: #dedbd5;
+  --cm-dark: #111111;
+  --cm-radius: 22px;
+
+  background: var(--cm-bg);
+}
+
+.contact-modern * {
+  box-sizing: border-box;
+}
+
+.cm-container {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.cm-header {
+  max-width: 780px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.cm-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 22px;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: #77736d;
+}
+
+.cm-eyebrow::before,
+.cm-eyebrow::after {
+  content: "";
+
+  width: 28px;
+  height: 1px;
+
+  background: #bcb8b0;
+}
+
+.cm-heading {
+  margin: 0;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: clamp(52px, 7vw, 92px);
+  font-weight: 500;
+
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+
+  color: var(--cm-text);
+}
+
+.cm-intro {
+  max-width: 540px;
+
+  margin: 28px auto 0;
+
+  font-size: 14px;
+  line-height: 1.8;
+
+  color: var(--cm-muted);
+}
+
+
+/* ============================================================
+   MAIN CARD
+   ============================================================ */
+
+.cm-card {
+  display: grid;
+
+  grid-template-columns: 0.8fr 1.4fr;
+
+  min-height: 620px;
+
+  background: var(--cm-surface);
+
+  border: 1px solid rgba(17, 17, 17, 0.08);
+
+  border-radius: var(--cm-radius);
+
+  overflow: hidden;
+
+  box-shadow:
+    0 20px 60px rgba(17, 17, 17, 0.06),
+    0 2px 8px rgba(17, 17, 17, 0.03);
+}
+
+
+/* ============================================================
+   INFORMATION PANEL
+   ============================================================ */
+
+.cm-info {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 58px 52px;
+
+  background: #111111;
+  color: #ffffff;
+
+  overflow: hidden;
+}
+
+.cm-info::before {
+  content: "";
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  right: -240px;
+  bottom: -220px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+
+  border-radius: 50%;
+}
+
+.cm-info::after {
+  content: "";
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  right: -140px;
+  bottom: -130px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  border-radius: 50%;
+}
+
+.cm-info__top {
+  position: relative;
+  z-index: 2;
+}
+
+.cm-info__number {
+  margin-bottom: 60px;
+
+  font-size: 10px;
+  letter-spacing: 0.2em;
+
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.cm-info__title {
+  margin: 0 0 18px;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 500;
+
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+.cm-info__description {
+  max-width: 310px;
+
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.8;
+
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* ============================================================
+   CONTACT DETAILS
+   ============================================================ */
+
+.cm-details {
+  position: relative;
+  z-index: 2;
+
+  margin-top: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+
+  padding-top: 70px;
+}
+
+.cm-detail {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 16px;
+}
+
+.cm-detail__icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  border-radius: 50%;
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cm-detail__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cm-detail__label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.cm-detail__value {
+  display: block;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* ============================================================
+   FORM SIDE
+   ============================================================ */
+
+.cm-form-panel {
+  padding: 58px 70px;
+
+  display: flex;
+  align-items: center;
+}
+
+.cm-form-wrapper {
+  width: 100%;
+  max-width: 650px;
+}
+
+.cm-form-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin-bottom: 44px;
+}
+
+.cm-form-title {
+  margin: 0;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+
+  font-size: 34px;
+  font-weight: 500;
+
+  line-height: 1;
+
+  color: #111111;
+}
+
+.cm-required-note {
+  font-size: 10px;
+  color: #99958e;
+}
+
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
+.cm-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+.cm-form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 24px;
+}
+
+.cm-field {
+  position: relative;
+}
+
+.cm-field__label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+
+  color: #55514b;
+}
+
+.cm-required {
+  color: #99958e;
+}
+
+.cm-input {
+  width: 100%;
+
+  padding: 15px 0;
+
+  border: 0;
+  border-bottom: 1px solid var(--cm-border);
+
+  border-radius: 0;
+
+  background: transparent;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  color: #111111;
+
+  transition:
+    border-color 0.25s ease,
+    padding 0.25s ease;
+}
+
+.cm-input:focus {
+  border-bottom-color: #111111;
+
+  padding-left: 5px;
+}
+
+.cm-input::placeholder {
+  color: #aaa69f;
+}
+
+.cm-textarea {
+  min-height: 120px;
+
+  resize: vertical;
+
+  line-height: 1.7;
+}
+
+.cm-field--error .cm-input {
+  border-bottom-color: #b44337;
+}
+
+.cm-error {
+  display: block;
+
+  margin-top: 8px;
+
+  font-size: 11px;
+
+  color: #b44337;
+}
+
+
+/* ============================================================
+   FORM FOOTER
+   ============================================================ */
+
+.cm-form-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-top: 10px;
+}
+
+.cm-privacy {
+  max-width: 250px;
+
+  margin: 0;
+
+  font-size: 10px;
+  line-height: 1.6;
+
+  color: #99958e;
+}
+
+
+/* ============================================================
+   SUBMIT BUTTON
+   ============================================================ */
+
+.cm-submit {
+  position: relative;
+
+  min-width: 190px;
+  height: 54px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  padding: 0 26px;
+
+  border: 0;
+  border-radius: 0;
+
+  background: #111111;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.cm-submit::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #292929;
+
+  transform: translateX(-101%);
+
+  transition:
+    transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.cm-submit span,
+.cm-submit svg {
+  position: relative;
+
+  z-index: 2;
+}
+
+.cm-submit svg {
+  width: 16px;
+  height: 16px;
+
+  transition: transform 0.3s ease;
+}
+
+.cm-submit:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 28px rgba(17, 17, 17, 0.18);
+}
+
+.cm-submit:hover::before {
+  transform: translateX(0);
+}
+
+.cm-submit:hover svg {
+  transform: translateX(5px);
+}
+
+.cm-submit:active {
+  transform: translateY(0);
+}
+
+/* -- Spinner inside button -- */
+
+.cm-submit__spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  animation: cm-spin 0.75s linear infinite;
+}
+
+@keyframes cm-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Loading state */
+
+.cm-submit--loading {
+  opacity: 0.8;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.cm-submit--loading .cm-submit__arrow {
+  display: none;
+}
+
+.cm-submit--loading .cm-submit__spinner {
+  display: block;
+}
+
+.cm-submit--loading .cm-submit__text {
+  opacity: 0.5;
+}
+
+
+
+
+/* ============================================================
+   SUCCESS MESSAGE
+   ============================================================ */
+
+.cm-success {
+  padding: 30px;
+
+  border: 1px solid #a8c9b2;
+
+  background: #f4faf5;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 16px;
+}
+
+.cm-success__icon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #1d6b3c;
+  color: #ffffff;
+}
+
+.cm-success__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cm-success strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: 14px;
+
+  color: #1d6b3c;
+}
+
+.cm-success p {
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  color: #4f745b;
+}
+
+
+/* ============================================================
+   TABLET  ≤ 1000px
+   ============================================================ */
+
+@media screen and (max-width: 1000px) {
+
+  .cm-card {
+    grid-template-columns: 0.9fr 1.25fr;
+  }
+
+  .cm-info {
+    padding: 48px 38px;
+  }
+
+  .cm-form-panel {
+    padding: 48px 40px;
+  }
+}
+
+
+/* ============================================================
+   MOBILE  ≤ 800px
+   ============================================================ */
+
+@media screen and (max-width: 800px) {
+
+  .cm-header {
+    margin-bottom: 45px;
+  }
+
+  .cm-card {
+    grid-template-columns: 1fr;
+  }
+
+  .cm-info {
+    min-height: auto;
+  }
+
+  .cm-details {
+    margin-top: 55px;
+  }
+}
+
+
+/* ============================================================
+   SMALL MOBILE  ≤ 600px
+   ============================================================ */
+
+@media screen and (max-width: 600px) {
+
+  .contact-modern {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .cm-container {
+    width: min(100% - 24px, 1240px);
+  }
+
+  .cm-header {
+    margin-bottom: 35px;
+  }
+
+  .cm-heading {
+    font-size: 42px;
+  }
+
+  .cm-card {
+    border-radius: 16px;
+  }
+
+  .cm-info {
+    padding: 40px 28px;
+  }
+
+  .cm-info__number {
+    margin-bottom: 45px;
+  }
+
+  .cm-details {
+    margin-top: 55px;
+    padding-top: 0;
+  }
+
+  .cm-form-panel {
+    padding: 42px 26px 46px;
+  }
+
+  .cm-form-top {
+    margin-bottom: 35px;
+  }
+
+  .cm-form-row {
+    grid-template-columns: 1fr;
+
+    gap: 28px;
+  }
+
+  .cm-form-footer {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .cm-privacy {
+    max-width: none;
+
+    text-align: center;
+
+    order: 2;
+  }
+
+  .cm-submit {
+    width: 100%;
+  }
+}

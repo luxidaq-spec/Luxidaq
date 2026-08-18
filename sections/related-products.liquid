@@ -1,0 +1,322 @@
+{{ 'section-related-products.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+
+  <product-recommendations
+    class="related-products luxury-related-products page-width section-{{ section.id }}-padding"
+    data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+
+      <div class="luxury-related-products__header">
+
+        <h2 class="luxury-related-products__title">
+          {{ section.settings.heading }}
+        </h2>
+
+        <p class="luxury-related-products__subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+
+      </div>
+
+      <div class="luxury-related-products__grid">
+
+        {%- for recommendation in recommendations.products -%}
+
+          <article class="luxury-product-card">
+
+            <!-- PRODUCT IMAGE -->
+            <div class="luxury-product-card__media">
+
+              <a
+                href="{{ recommendation.url }}"
+                class="luxury-product-card__image-link"
+                aria-label="{{ recommendation.title | escape }}"
+              >
+
+                {%- if recommendation.featured_image -%}
+
+                  {{
+                    recommendation.featured_image
+                    | image_url: width: 900
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '300, 450, 600, 750, 900',
+                      sizes: '(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw',
+                      class: 'luxury-product-card__image',
+                      alt: recommendation.featured_image.alt | default: recommendation.title | escape
+                  }}
+
+                {%- else -%}
+
+                  {{ 'product-1' | placeholder_svg_tag: 'luxury-product-card__image luxury-product-card__placeholder' }}
+
+                {%- endif -%}
+
+              </a>
+
+
+              <!-- DISCOUNT BADGE -->
+              {%- if recommendation.compare_at_price > recommendation.price -%}
+
+                {%- assign discount_amount = recommendation.compare_at_price
+                  | minus: recommendation.price
+                -%}
+
+                {%- assign discount_percentage = discount_amount
+                  | times: 100
+                  | divided_by: recommendation.compare_at_price
+                -%}
+
+                <span class="luxury-product-card__discount">
+                  -{{ discount_percentage }}% OFF
+                </span>
+
+              {%- else -%}
+
+                <span class="luxury-product-card__discount">
+                  -38% OFF
+                </span>
+
+              {%- endif -%}
+
+
+              <!-- HEART BUTTON -->
+              <button
+                type="button"
+                class="luxury-product-card__wishlist"
+                aria-label="Add {{ recommendation.title | escape }} to wishlist"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M20.84 4.61C19.78 3.55 18.4 3 16.95 3C15.5 3 14.12 3.55 13.06 4.61L12 5.67L10.94 4.61C8.73 2.4 5.14 2.4 2.93 4.61C0.72 6.82 0.72 10.41 2.93 12.62L12 21.69L21.07 12.62C23.28 10.41 23.28 6.82 21.07 4.61L20.84 4.61Z"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+
+              <!-- PRICE + ADD BUTTON -->
+              <div class="luxury-product-card__action">
+
+                <div class="luxury-product-card__price">
+
+                  {%- if recommendation.compare_at_price > recommendation.price -%}
+                    <span class="luxury-product-card__current-price">
+                      {{ recommendation.price | money }}
+                    </span>
+                  {%- else -%}
+                    <span class="luxury-product-card__current-price">
+                      {{ recommendation.price | money }}
+                    </span>
+                  {%- endif -%}
+
+                </div>
+
+                <form
+                  method="post"
+                  action="{{ routes.cart_add_url }}"
+                  class="luxury-product-card__form"
+                >
+
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ recommendation.selected_or_first_available_variant.id }}"
+                  >
+
+                  <input
+                    type="hidden"
+                    name="quantity"
+                    value="1"
+                  >
+
+                  <button
+                    type="submit"
+                    class="luxury-product-card__add"
+                    {% unless recommendation.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    <span class="luxury-product-card__add-icon">+</span>
+
+                    <span>
+                      {% if recommendation.available %}
+                        Add
+                      {% else %}
+                        Sold out
+                      {% endif %}
+                    </span>
+                  </button>
+
+                </form>
+
+              </div>
+
+            </div>
+
+
+            <!-- PRODUCT INFORMATION -->
+            <div class="luxury-product-card__info">
+
+              <div class="luxury-product-card__top">
+
+                <span class="luxury-product-card__vendor">
+                  {{ recommendation.vendor | default: 'MY STORE' }}
+                </span>
+
+                <span class="luxury-product-card__rating">
+                  <span class="luxury-product-card__star">★</span>
+                  4.9
+                </span>
+
+              </div>
+
+
+              <a
+                href="{{ recommendation.url }}"
+                class="luxury-product-card__title"
+              >
+                {{ recommendation.title }}
+              </a>
+
+
+              <div class="luxury-product-card__bottom">
+
+                {% if recommendation.available %}
+
+                  <span class="luxury-product-card__availability">
+                    In Stock — Ships in 24h
+                  </span>
+
+                {% else %}
+
+                  <span class="luxury-product-card__availability luxury-product-card__availability--soldout">
+                    Sold Out
+                  </span>
+
+                {% endif %}
+
+
+                <div class="luxury-product-card__dots">
+
+                  <span class="luxury-product-card__dot luxury-product-card__dot--active"></span>
+                  <span class="luxury-product-card__dot luxury-product-card__dot--dark"></span>
+                  <span class="luxury-product-card__dot luxury-product-card__dot--green"></span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        {%- endfor -%}
+
+      </div>
+
+    {%- endif -%}
+
+  </product-recommendations>
+
+</div>
+
+
+{% schema %}
+{
+  "name": "Related products",
+  "tag": "section",
+  "class": "section",
+
+  "settings": [
+
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "Heading"
+    },
+
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Follow the most popular trends and discover products you may love.",
+      "label": "Subtitle"
+    },
+
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36,
+      "label": "Top padding"
+    },
+
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36,
+      "label": "Bottom padding"
+    }
+
+  ]
+}
+{% endschema %}

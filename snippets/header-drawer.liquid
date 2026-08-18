@@ -1,0 +1,320 @@
+{% comment %}
+  Snippet: WoodMart-Style Tabbed Mobile Drawer (CATEGORIES | MENU)
+{% endcomment %}
+
+<div class="wm-drawer__backdrop" id="wm-drawer-backdrop" onclick="closeWmMobileDrawer()"></div>
+
+<div class="wm-drawer" id="wm-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+  <div class="wm-drawer__header">
+    <div class="wm-drawer__tabs">
+      <button
+        type="button"
+        class="wm-drawer__tab-btn is-active"
+        id="tab-btn-categories"
+        onclick="switchWmTab('categories')"
+      >
+        CATEGORIES
+      </button>
+      <button
+        type="button"
+        class="wm-drawer__tab-btn"
+        id="tab-btn-menu"
+        onclick="switchWmTab('menu')"
+      >
+        MENU
+      </button>
+    </div>
+    <button type="button" class="wm-drawer__close-btn" onclick="closeWmMobileDrawer()" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="wm-drawer__content">
+    {%- comment -%} TAB 1: CATEGORIES {%- endcomment -%}
+    <div class="wm-drawer__tab-pane is-active" id="tab-pane-categories">
+      <ul class="wm-drawer__menu-list">
+        {%- assign cat_menu = linklists[section.settings.categories_menu] -%}
+        {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
+          {%- assign cat_menu = linklists['categories-menu'] -%}
+        {%- endif -%}
+        {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
+          {%- assign cat_menu = section.settings.categories_menu | default: section.settings.menu -%}
+        {%- endif -%}
+        {%- if cat_menu != blank and cat_menu.links.size > 0 -%}
+          {%- for link in cat_menu.links -%}
+            <li class="wm-drawer__menu-item">
+              <a href="{{ link.url }}" class="wm-drawer__menu-link">
+                <span class="wm-drawer__link-icon">
+                  {%- render 'category-icon', title: link.title -%}
+                </span>
+                <span class="wm-drawer__link-text">{{ link.title | escape }}</span>
+                {%- if link.links.size > 0 -%}
+                  <svg class="wm-drawer__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                {%- endif -%}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
+          {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies,Sports Equipment & Supplies' | split: ',' -%}
+
+          {%- for cat in default_cats -%}
+            {%- assign cat_handle = cat | handleize -%}
+            {%- assign matched_col = collections[cat_handle] -%}
+            {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+            
+            <li class="wm-drawer__menu-item">
+              <a href="{{ col_url }}" class="wm-drawer__menu-link">
+                <span class="wm-drawer__link-icon">
+                  {%- render 'category-icon', title: cat -%}
+                </span>
+                <span class="wm-drawer__link-text">{{ cat }}</span>
+                {%- if cat contains 'Sports' -%}
+                  <svg class="wm-drawer__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                {%- endif -%}
+              </a>
+              {%- if cat contains 'Sports' -%}
+                <ul class="wm-drawer__sublist" style="padding-left: 20px; list-style: none; margin: 4px 0 8px;">
+                  {%- for sub in sports_subs -%}
+                    {%- assign sub_handle = sub | handleize -%}
+                    {%- assign matched_sub = collections[sub_handle] -%}
+                    {%- assign sub_url = matched_sub.url | default: col_url -%}
+                    <li class="wm-drawer__subitem" style="padding: 6px 0;">
+                      <a href="{{ sub_url }}" class="wm-drawer__menu-link" style="font-size: 0.875rem;">
+                        <span class="wm-drawer__link-icon">
+                          {%- render 'category-icon', title: sub -%}
+                        </span>
+                        <span>{{ sub }}</span>
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment -%} TAB 2: MENU {%- endcomment -%}
+    <div class="wm-drawer__tab-pane" id="tab-pane-menu">
+      <ul class="wm-drawer__menu-list">
+        {%- for link in section.settings.menu.links -%}
+          <li class="wm-drawer__menu-item">
+            <a href="{{ link.url }}" class="wm-drawer__menu-link">
+              <span class="wm-drawer__link-text">{{ link.title | escape }}</span>
+            </a>
+          </li>
+        {%- else -%}
+          {%- assign default_menu = 'Home|Collections|New Arrivals|Best Sellers|About Us|Contact' | split: '|' -%}
+          {%- for item in default_menu -%}
+            <li class="wm-drawer__menu-item">
+              <a href="/collections/all" class="wm-drawer__menu-link">
+                <span class="wm-drawer__link-text">{{ item }}</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- endfor -%}
+
+        <li class="wm-drawer__menu-item wm-drawer__menu-item--divider"></li>
+
+        <li class="wm-drawer__menu-item">
+          <a href="/pages/wishlist" class="wm-drawer__menu-link">
+            <span class="wm-drawer__link-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </span>
+            <span class="wm-drawer__link-text">Wishlist</span>
+          </a>
+        </li>
+        <li class="wm-drawer__menu-item">
+          <a href="#" class="wm-drawer__menu-link">
+            <span class="wm-drawer__link-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+            </span>
+            <span class="wm-drawer__link-text">Compare</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ══ WOODMART TABBED MOBILE DRAWER STYLES ══ */
+.wm-drawer__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.wm-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 85vw;
+  background: #FFFFFF;
+  z-index: 1000;
+  transform: translateX(-100%);
+  transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+}
+
+.wm-drawer.is-open {
+  transform: translateX(0);
+}
+
+.wm-drawer__backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wm-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E5E8F0;
+  background: #F8F9FD;
+}
+
+.wm-drawer__tabs {
+  display: flex;
+  flex: 1;
+  height: 54px;
+}
+
+.wm-drawer__tab-btn {
+  flex: 1;
+  border: none;
+  background: #EAECEF;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #555B68;
+  cursor: pointer;
+  transition: all 200ms ease;
+  position: relative;
+}
+
+.wm-drawer__tab-btn.is-active {
+  background: #FFFFFF;
+  color: #121316;
+  font-weight: 800;
+}
+
+.wm-drawer__tab-btn.is-active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #121316;
+}
+
+.wm-drawer__close-btn {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #121316;
+  cursor: pointer;
+}
+
+.wm-drawer__content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.wm-drawer__tab-pane {
+  display: none;
+}
+
+.wm-drawer__tab-pane.is-active {
+  display: block;
+}
+
+.wm-drawer__menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wm-drawer__menu-item {
+  border-bottom: 1px solid #F0F2F7;
+}
+
+.wm-drawer__menu-item--divider {
+  height: 8px;
+  background: #F8F9FD;
+  border: none;
+}
+
+.wm-drawer__menu-link {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #121316;
+  text-decoration: none;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.wm-drawer__menu-link:hover {
+  background: #F4F5FE;
+  color: var(--color-accent-gold, #C9A96E);
+}
+
+.wm-drawer__link-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  color: #121316;
+}
+
+.wm-drawer__link-text {
+  flex: 1;
+}
+
+.wm-drawer__arrow {
+  color: #8E95A2;
+}
+</style>
+
+<script>
+function openWmMobileDrawer() {
+  document.getElementById('wm-mobile-drawer')?.classList.add('is-open');
+  document.getElementById('wm-drawer-backdrop')?.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWmMobileDrawer() {
+  document.getElementById('wm-mobile-drawer')?.classList.remove('is-open');
+  document.getElementById('wm-drawer-backdrop')?.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+function switchWmTab(tabName) {
+  document.querySelectorAll('.wm-drawer__tab-btn').forEach(btn => btn.classList.remove('is-active'));
+  document.querySelectorAll('.wm-drawer__tab-pane').forEach(pane => pane.classList.remove('is-active'));
+
+  document.getElementById('tab-btn-' + tabName)?.classList.add('is-active');
+  document.getElementById('tab-pane-' + tabName)?.classList.add('is-active');
+}
+</script>
