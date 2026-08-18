@@ -22,6 +22,6 @@ jobs:
       
       - name: Deploy theme to Shopify
         run: |
-          shopify theme push --store ${{ secrets.SHOPIFY_STORE }} --password ${{ secrets.SHOPIFY_ACCESS_TOKEN }} --allow-live
+          shopify theme push --store bys-store-3132714-815569 --password ${{ secrets.SHOPIFY_ACCESS_TOKEN }} --allow-live
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
