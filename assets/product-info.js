@@ -212,10 +212,11 @@ if (!customElements.get('product-info')) {
           this.querySelector(`#Quantity-Rules-${this.dataset.section}`)?.classList.remove('hidden');
           this.querySelector(`#Volume-Note-${this.dataset.section}`)?.classList.remove('hidden');
 
-          this.productForm?.toggleSubmitButton(
-            html.getElementById(`ProductSubmitButton-${this.sectionId}`)?.hasAttribute('disabled') ?? true,
-            window.variantStrings.soldOut
-          );
+          const variantUnavailable = html.getElementById(`ProductSubmitButton-${this.sectionId}`)?.hasAttribute('disabled') ?? true;
+          this.productForm?.toggleSubmitButton(variantUnavailable, window.variantStrings.soldOut);
+          this.querySelectorAll('.shopify-payment-button').forEach((paymentButton) => {
+            paymentButton.classList.toggle('hidden', variantUnavailable);
+          });
 
           publish(PUB_SUB_EVENTS.variantChange, {
             data: {

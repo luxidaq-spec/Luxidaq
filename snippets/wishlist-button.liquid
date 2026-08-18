@@ -9,6 +9,8 @@
 <button
   class="ds-wishlist-btn"
   data-wishlist-id="{{ product.id }}"
+  data-wishlist-handle="{{ product.handle }}"
+  data-account-url="{{ routes.account_url }}"
   aria-label="Add {{ product.title | escape }} to wishlist"
   title="Save to wishlist"
   type="button"
@@ -63,9 +65,10 @@
     const list = getWishlist();
     document.querySelectorAll('[data-wishlist-id]').forEach(btn => {
       const id = parseInt(btn.dataset.wishlistId, 10);
-      btn.classList.toggle('is-active', list.includes(id));
+      const active = list.some(item => (typeof item === 'object' ? item.id : item) === id);
+      btn.classList.toggle('is-active', active);
       btn.setAttribute('aria-label',
-        list.includes(id)
+        active
           ? btn.getAttribute('aria-label').replace('Add','Remove')
           : btn.getAttribute('aria-label').replace('Remove','Add')
       );
@@ -76,12 +79,18 @@
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('[data-wishlist-id]');
     if (!btn) return;
+    {% unless customer %}
+      window.location.href = btn.dataset.accountUrl;
+      return;
+    {% endunless %}
     const id = parseInt(btn.dataset.wishlistId, 10);
+    const handle = btn.dataset.wishlistHandle;
     let list = getWishlist();
-    if (list.includes(id)) {
-      list = list.filter(i => i !== id);
+    const active = list.some(item => (typeof item === 'object' ? item.id : item) === id);
+    if (active) {
+      list = list.filter(item => (typeof item === 'object' ? item.id : item) !== id);
     } else {
-      list.push(id);
+      list.push({ id: id, handle: handle });
     }
     saveWishlist(list);
     syncWishlistBtns();

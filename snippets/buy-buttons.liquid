@@ -18,8 +18,12 @@
         assign gift_card_recipient_feature_active = true
       endif
 
+      assign selected_variant_unavailable = true
+      if product.selected_or_first_available_variant != blank and product.selected_or_first_available_variant.available
+        assign selected_variant_unavailable = false
+      endif
       assign show_dynamic_checkout = false
-      if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
+      if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false and selected_variant_unavailable == false
         assign show_dynamic_checkout = true
       endif
     -%}
@@ -93,7 +97,7 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
-          {%- if show_dynamic_checkout -%}
+          {%- if show_dynamic_checkout and selected_variant_unavailable == false -%}
             {{ form | payment_button }}
           {%- endif -%}
         </div>

@@ -103,6 +103,9 @@
     {%- if show_wishlist -%}
       <button
         class="ds-card-app__wishlist"
+        data-wishlist-id="{{ product.id }}"
+        data-wishlist-handle="{{ product.handle }}"
+        data-account-url="{{ routes.account_url }}"
         aria-label="Add to wishlist"
         type="button"
       >
@@ -128,15 +131,19 @@
         {%- endif -%}
       </div>
 
-      <button
-        class="ds-card-app__add-btn"
-        data-product-id="{{ product.variants.first.id | default: 12345 }}"
-        type="button"
-        aria-label="Add to cart"
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        <span>Add</span>
-      </button>
+      <form method="post" action="{{ routes.cart_add_url }}" class="ds-card-app__form">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button
+          class="ds-card-app__add-btn{% unless product.available %} is-sold-out{% endunless %}"
+          type="submit"
+          aria-label="{% if product.available %}Add to cart{% else %}Sold out{% endif %}"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {% if product.available %}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>{% endif %}
+          <span>{% if product.available %}Add{% else %}Sold out{% endif %}</span>
+        </button>
+      </form>
     </div>
   </div>
 
@@ -160,7 +167,7 @@
     </h3>
 
     <div class="ds-card-app__footer-row">
-      <span class="ds-card-app__stock">In Stock — Ships in 24h</span>
+      <span class="ds-card-app__stock{% unless product.available %} is-sold-out{% endunless %}">{% if product.available %}In Stock — Ships in 24h{% else %}Out of stock{% endif %}</span>
       
       <div class="ds-card-app__swatches">
         <span class="ds-card-app__swatch ds-card-app__swatch--1 is-active" title="Cream / Off-White"></span>
@@ -378,6 +385,11 @@
   box-shadow: 0 6px 18px rgba(224, 90, 43, 0.5);
 }
 
+.ds-card-app__form { margin: 0; }
+.ds-card-app__add-btn.is-sold-out,
+.ds-card-app__add-btn.is-sold-out:hover { background: #171716; color: #fff; cursor: not-allowed; transform: none; }
+.ds-card-app__stock.is-sold-out { color: #8b4d3d; }
+
 /* ── PRODUCT DETAILS ── */
 .ds-card-app__info {
   padding: 1.25rem 1.35rem 1.35rem;
@@ -484,3 +496,28 @@
 .ds-card-app__swatch--2 { background: #121316; }
 .ds-card-app__swatch--3 { background: #064E3B; }
 </style>
+
+<script>
+  (function () {
+    if (window.luxidaqWishlistReady) return;
+    window.luxidaqWishlistReady = true;
+    function getWishlist() {
+      try { return JSON.parse(localStorage.getItem('ds_wishlist') || '[]'); } catch (error) { return []; }
+    }
+    function saveWishlist(list) { localStorage.setItem('ds_wishlist', JSON.stringify(list)); }
+    document.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-wishlist-id]');
+      if (!button) return;
+      event.preventDefault();
+      {% unless customer %}window.location.href = button.dataset.accountUrl; return;{% endunless %}
+      var id = Number(button.dataset.wishlistId);
+      var list = getWishlist();
+      var active = list.some(function (item) { return (typeof item === 'object' ? item.id : item) === id; });
+      list = active
+        ? list.filter(function (item) { return (typeof item === 'object' ? item.id : item) !== id; })
+        : list.concat([{ id: id, handle: button.dataset.wishlistHandle }]);
+      saveWishlist(list);
+      button.classList.toggle('is-active', !active);
+    });
+  }());
+</script>
