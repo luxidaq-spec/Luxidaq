@@ -87,9 +87,13 @@
               {%- assign cat_menu = linklists['categories-menu'] -%}
             {%- endif -%}
 
+            {%- assign has_about_link = false -%}
             {%- if section.settings.menu.links.size > 0 -%}
               {%- for link in section.settings.menu.links -%}
                 {%- assign link_title_lower = link.title | downcase -%}
+                {%- if link_title_lower contains 'about' -%}
+                  {%- assign has_about_link = true -%}
+                {%- endif -%}
                 {%- assign is_megamenu = false -%}
                 {%- if link_title_lower contains 'cat' or link_title_lower contains 'collection' or link.links.size > 0 -%}
                   {%- assign is_megamenu = true -%}
@@ -182,6 +186,14 @@
                   {%- endif -%}
                 </li>
               {%- endfor -%}
+              {%- unless has_about_link -%}
+                <li class="wm-main-menu__item">
+                  <a href="/pages/about-us" class="wm-main-menu__link{% if request.path == '/pages/about-us' %} is-active{% endif %}">
+                    <span>About Us</span>
+                    {% if request.path == '/pages/about-us' %}<span class="wm-active-dot"></span>{% endif %}
+                  </a>
+                </li>
+              {%- endunless -%}
             {%- else -%}
               {%- comment -%} DEFAULT NAV CAPSULE ITEMS {%- endcomment -%}
               {%- assign default_nav = 'Home|Categories|New Arrivals|Best Sellers|About Us|Contact' | split: '|' -%}
@@ -192,7 +204,7 @@
                 {%- endif -%}
 
                 <li class="wm-main-menu__item{% if is_megamenu %} has-megamenu{% endif %}">
-                  <a href="{% if item == 'Home' %}/{% else %}/collections/all{% endif %}" class="wm-main-menu__link{% if item == 'Home' %} is-active{% endif %}">
+                  <a href="{% if item == 'Home' %}/{% elsif item == 'About Us' %}/pages/about-us{% elsif item == 'Contact' %}/pages/contact{% else %}/collections/all{% endif %}" class="wm-main-menu__link{% if item == 'Home' %} is-active{% endif %}">
                     <span>{{ item }}</span>
                     {%- if item == 'Home' -%}
                       <span class="wm-active-dot"></span>

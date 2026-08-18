@@ -99,7 +99,12 @@
     {%- comment -%} TAB 2: MENU {%- endcomment -%}
     <div class="wm-drawer__tab-pane" id="tab-pane-menu">
       <ul class="wm-drawer__menu-list">
+        {%- assign has_about_link = false -%}
         {%- for link in section.settings.menu.links -%}
+          {%- assign link_title_lower = link.title | downcase -%}
+          {%- if link_title_lower contains 'about' -%}
+            {%- assign has_about_link = true -%}
+          {%- endif -%}
           <li class="wm-drawer__menu-item">
             <a href="{{ link.url }}" class="wm-drawer__menu-link">
               <span class="wm-drawer__link-text">{{ link.title | escape }}</span>
@@ -115,6 +120,13 @@
             </li>
           {%- endfor -%}
         {%- endfor -%}
+        {%- if section.settings.menu.links.size > 0 and has_about_link == false -%}
+          <li class="wm-drawer__menu-item">
+            <a href="/pages/about-us" class="wm-drawer__menu-link">
+              <span class="wm-drawer__link-text">About Us</span>
+            </a>
+          </li>
+        {%- endif -%}
 
         <li class="wm-drawer__menu-item wm-drawer__menu-item--divider"></li>
 

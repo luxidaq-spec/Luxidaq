@@ -634,6 +634,7 @@
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
 
 
+    {% if template == 'index' %}
     <!-- ==================================================
          PREMIUM CENTER-SPLIT DOOR LOADER
          ================================================== -->
@@ -673,7 +674,7 @@
       <div class="premium-loader-center">
 
         <div class="premium-loader-brand">
-          {{ shop.name | upcase }}
+          LUXIDAQ
         </div>
 
         <div class="premium-loader-rule">
@@ -921,7 +922,7 @@
         top: 50%;
         left: 50%;
 
-        width: 80vw;
+        width: min(80vw, 720px);
 
         transform:
           translate3d(
@@ -968,9 +969,9 @@
 
         font-size:
           clamp(
-            38px,
-            5vw,
-            72px
+            28px,
+            8vw,
+            64px
           );
 
         font-weight: 500;
@@ -983,7 +984,11 @@
         margin-left:
           0.18em;
 
-        white-space: nowrap;
+        max-width: 100%;
+
+        overflow-wrap: anywhere;
+
+        white-space: normal;
 
         opacity: 0;
 
@@ -1382,6 +1387,8 @@
     <!-- ==================================================
          END PREMIUM CENTER-SPLIT DOOR LOADER
          ================================================== -->
+
+        {% endif %}
 
 
     <a

@@ -14,14 +14,194 @@
   }
 {%- endstyle -%}
 
-<div class="page-width page-width--narrow section-{{ section.id }}-padding">
-  <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ page.title | escape }}
-  </h1>
-  <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    {{ page.content }}
+{% if page.handle == 'cookie-policy' %}
+  <div class="legal-page page-width page-width--narrow section-{{ section.id }}-padding">
+    <p class="about-default-page__eyebrow">Luxidaq policies</p>
+    <h1 class="main-page-title page-title h0">Cookie Policy</h1>
+    <div class="rte">
+      <p><strong>Last Updated: August 19, 2026</strong></p>
+      <p>This Cookie Policy explains how <strong>Luxidaq</strong> uses cookies and similar technologies when you visit <a href="https://luxidaq.com/">https://luxidaq.com/</a>.</p>
+      <h2>What Are Cookies?</h2>
+      <p>Cookies are small text files stored on your device when you visit a website. They help websites remember information about your visit and improve your browsing experience.</p>
+      <h2>How We Use Cookies</h2>
+      <p>Luxidaq may use cookies and similar technologies for purposes including:</p>
+      <ul><li>Ensuring our website functions properly</li><li>Remembering your preferences</li><li>Understanding how visitors use our website</li><li>Improving website performance</li><li>Supporting security and fraud prevention</li><li>Measuring advertising performance</li><li>Delivering relevant marketing or advertising, where applicable</li></ul>
+      <h2>Types of Cookies</h2>
+      <h3>Essential Cookies</h3><p>These cookies are necessary for the proper operation of our website and ecommerce services.</p>
+      <h3>Analytics Cookies</h3><p>These cookies help us understand how visitors interact with our website and help us improve our services.</p>
+      <h3>Marketing Cookies</h3><p>These cookies may be used to measure advertising performance and provide more relevant advertisements.</p>
+      <h2>Managing Cookies</h2>
+      <p>You may be able to manage or disable certain cookies through your browser settings.</p><p>Please note that disabling some cookies may affect the functionality and performance of our website.</p>
+      <h2>Third-Party Cookies</h2><p>Some third-party services used by Luxidaq may place cookies or use similar technologies. These third parties are responsible for their own privacy and cookie practices.</p>
+      <h2>Changes to This Cookie Policy</h2><p>We may update this Cookie Policy from time to time. Changes will be posted on this page with an updated revision date.</p>
+      <h2>Contact</h2><p><strong>Luxidaq</strong><br>Email: <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a><br>Website: <a href="https://luxidaq.com/">https://luxidaq.com/</a></p>
+    </div>
   </div>
-</div>
+{% elsif page.handle == 'privacy-policy' %}
+  <div class="legal-page page-width page-width--narrow section-{{ section.id }}-padding">
+    <p class="about-default-page__eyebrow">Luxidaq policies</p>
+    <h1 class="main-page-title page-title h0">Privacy Policy</h1>
+    <div class="rte">
+      <p><strong>Last Updated: August 19, 2026</strong></p>
+      <p>Luxidaq respects your privacy. This policy explains what information we collect, how we use it, and the choices available to you when you visit our website or place an order.</p>
+      <h2>Information We Collect</h2>
+      <p>We may collect information you provide when you create an account, place an order, contact us, subscribe to updates, or otherwise use our services. This may include your name, contact details, billing and delivery information, and order history.</p>
+      <p>We also receive technical information such as your browser, device, IP address, and interactions with our website through cookies and similar technologies.</p>
+      <h2>How We Use Information</h2>
+      <ul><li>Process and deliver orders</li><li>Provide customer support</li><li>Maintain and improve our website</li><li>Prevent fraud and protect account security</li><li>Send service messages and, where permitted, marketing updates</li></ul>
+      <h2>Sharing Information</h2>
+      <p>We share information with service providers that help us operate our store, process payments, deliver orders, provide analytics, and communicate with you. We do not sell your personal information.</p>
+      <h2>Your Choices</h2>
+      <p>You may unsubscribe from marketing emails at any time and may request access to, correction of, or deletion of your personal information, subject to applicable law.</p>
+      <h2>Contact</h2><p>For privacy questions, contact <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a>.</p>
+    </div>
+  </div>
+{% elsif page.handle == 'terms-conditions' %}
+  <div class="legal-page page-width page-width--narrow section-{{ section.id }}-padding">
+    <p class="about-default-page__eyebrow">Luxidaq policies</p>
+    <h1 class="main-page-title page-title h0">Terms &amp; Conditions</h1>
+    <div class="rte">
+      <p><strong>Last Updated: August 19, 2026</strong></p>
+      <p>These Terms &amp; Conditions govern your use of the Luxidaq website and your purchase of products from us. By using the website, you agree to these terms.</p>
+      <h2>Using Our Website</h2>
+      <p>You agree to provide accurate information, use the website lawfully, and avoid actions that could disrupt the website or infringe the rights of Luxidaq or others.</p>
+      <h2>Products and Orders</h2>
+      <p>Product descriptions, images, availability, and prices may change without notice. An order is accepted when we confirm it. We may cancel or limit an order where there is an error, suspected fraud, or unavailable stock.</p>
+      <h2>Payment and Pricing</h2>
+      <p>Payments are processed through approved payment providers. Prices are shown in the applicable store currency and may exclude taxes, duties, or delivery charges where stated at checkout.</p>
+      <h2>Intellectual Property</h2>
+      <p>Website content, branding, photography, text, and design belong to Luxidaq or its licensors and may not be copied or used without permission.</p>
+      <h2>Contact</h2><p>Questions about these terms can be sent to <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a>.</p>
+    </div>
+  </div>
+{% elsif page.handle == 'shipping-policy' %}
+  <div class="legal-page page-width page-width--narrow section-{{ section.id }}-padding">
+    <p class="about-default-page__eyebrow">Luxidaq policies</p>
+    <h1 class="main-page-title page-title h0">Shipping Policy</h1>
+    <div class="rte">
+      <p><strong>Last Updated: August 19, 2026</strong></p>
+      <h2>Order Processing</h2>
+      <p>Orders are typically processed within 1–3 business days. Processing may take longer during launches, promotions, holidays, or periods of unusually high demand.</p>
+      <h2>Delivery</h2>
+      <p>Available delivery methods, estimated arrival dates, and costs are shown at checkout. Delivery estimates are not guarantees and may be affected by carrier delays, weather, customs, or incorrect address details.</p>
+      <h2>Tracking</h2>
+      <p>When tracking is available, we will send it to the email address provided at checkout. Please allow time for the carrier to update tracking after dispatch.</p>
+      <h2>International Orders</h2>
+      <p>International orders may be subject to customs duties, taxes, or import fees. These charges are the responsibility of the recipient unless otherwise stated at checkout.</p>
+      <h2>Delivery Issues</h2>
+      <p>If your order is delayed, damaged, or appears to be missing, contact us at <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a> with your order number so we can help.</p>
+    </div>
+  </div>
+{% elsif page.handle == 'faq' %}
+  <div class="legal-page page-width page-width--narrow section-{{ section.id }}-padding">
+    <p class="about-default-page__eyebrow">Need to know</p>
+    <h1 class="main-page-title page-title h0">Frequently Asked Questions</h1>
+    <div class="rte">
+      <h2>How do I place an order?</h2><p>Add your chosen products to the cart, proceed to checkout, and follow the payment and delivery steps.</p>
+      <h2>Can I change or cancel my order?</h2><p>Contact us as soon as possible at <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a>. We will try to help before the order is processed, but changes cannot be guaranteed.</p>
+      <h2>How long does delivery take?</h2><p>Processing and delivery estimates are shown at checkout. Carrier and customs delays can affect the final arrival date.</p>
+      <h2>How can I track my order?</h2><p>When tracking is available, it will be sent to the email address used for your order.</p>
+      <h2>What if my item arrives damaged?</h2><p>Contact us promptly with your order number and photos of the packaging and item. We will review the issue and help with the next steps.</p>
+      <h2>How do I contact Luxidaq?</h2><p>Email <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a> and include your order number where relevant.</p>
+    </div>
+  </div>
+{% elsif page.handle == 'about-us' %}
+  <div class="about-default-page">
+    <div class="about-default-page__hero">
+      <div class="about-default-page__hero-slider" aria-hidden="true">
+        <img src="{{ 'hero-slide-1.png' | asset_url }}" alt="" loading="eager" width="1024" height="1024">
+        <img src="{{ 'hero-slide-2.png' | asset_url }}" alt="" loading="lazy" width="1024" height="1024">
+        <img src="{{ 'hero-slide-3.png' | asset_url }}" alt="" loading="lazy" width="1024" height="1024">
+      </div>
+      <p class="about-default-page__eyebrow">The Luxidaq story</p>
+      <h1>Luxidaq</h1>
+      <p class="about-default-page__intro">A considered approach to the things you live with, wear, and love.</p>
+    </div>
+
+    <div class="about-default-page__story page-width">
+      <div>
+        <p class="about-default-page__eyebrow">Everyday, elevated</p>
+        <h2>Luxury should feel lived in.</h2>
+        <div class="rte">
+          <p>Luxidaq was created for people who believe the everyday deserves more attention. We bring together thoughtful design, lasting quality, and a sense of ease to make products that belong naturally in your life.</p>
+          <p>From the first idea to the final detail, we choose with intention. The result is a collection that feels personal, practical, and quietly distinctive.</p>
+        </div>
+      </div>
+      <div class="about-default-page__story-media">
+        <img src="{{ 'hero-slide-3.png' | asset_url }}" alt="A warm, considered home interior" loading="lazy" width="1024" height="1024">
+        <span>Made for the moments that matter</span>
+      </div>
+    </div>
+
+    <div class="about-default-page__values page-width">
+      <div>
+        <p class="about-default-page__eyebrow">What we believe</p>
+        <h2>Thoughtful by design.</h2>
+      </div>
+      <div class="about-default-page__value-list">
+        <article><span>01</span><h3>Intentional design</h3><p>Every detail has a reason, from the first sketch to the way a piece feels in your hands.</p></article>
+        <article><span>02</span><h3>Lasting quality</h3><p>We look beyond the moment to create things you will return to again and again.</p></article>
+        <article><span>03</span><h3>Quiet confidence</h3><p>The best luxury does not need to announce itself. It simply feels right.</p></article>
+      </div>
+    </div>
+
+    <div class="about-default-page__closing">
+      <p class="about-default-page__eyebrow">Find your everyday luxury</p>
+      <h2>Make room for better everyday things.</h2>
+      <a class="button button--primary" href="{{ routes.all_products_collection_url }}">Explore the collection</a>
+    </div>
+  </div>
+
+  <style>
+    .about-default-page { background: #f5f2ec; color: #171716; }
+    .about-default-page__hero { min-height: min(70vh, 700px); position: relative; isolation: isolate; overflow: hidden; padding: 10rem 8vw 7rem; display: flex; flex-direction: column; justify-content: flex-end; background: #171716; color: #f5f2ec; }
+    .about-default-page__hero::after { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(12,12,11,.9) 0%, rgba(12,12,11,.62) 45%, rgba(12,12,11,.38) 100%); }
+    .about-default-page__hero-slider { position: absolute; z-index: -2; inset: 0; background: #171716; }
+    .about-default-page__hero-slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: about-hero-slide 15s infinite; }
+    .about-default-page__hero-slider img:nth-child(1) { animation-delay: 0s; }
+    .about-default-page__hero-slider img:nth-child(2) { animation-delay: 5s; }
+    .about-default-page__hero-slider img:nth-child(3) { animation-delay: 10s; }
+    @keyframes about-hero-slide { 0%, 28% { opacity: 1; } 33%, 95% { opacity: 0; } 100% { opacity: 1; } }
+    .about-default-page__eyebrow { margin: 0 0 1.5rem; color: #b08f4b; font-size: 1.1rem; letter-spacing: .2em; line-height: 1.4; text-transform: uppercase; }
+    .about-default-page h1, .about-default-page h2, .about-default-page h3, .about-default-page p { overflow-wrap: anywhere; }
+    .about-default-page h1 { margin: 0; color: #f5f2ec; font-size: clamp(4.8rem, 11vw, 12rem); font-weight: 400; line-height: .88; }
+    .about-default-page__intro { max-width: 620px; margin: 2.5rem 0 0; color: rgba(245,242,236,.76); font-size: clamp(1.6rem, 2.4vw, 2.4rem); line-height: 1.35; }
+    .about-default-page__story { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem, 8vw, 9rem); align-items: center; padding-top: clamp(7rem, 12vw, 13rem); padding-bottom: clamp(7rem, 12vw, 13rem); }
+    .about-default-page h2 { margin: 0 0 2rem; font-size: clamp(3.2rem, 5vw, 6.5rem); font-weight: 400; line-height: .95; }
+    .about-default-page__story .rte { max-width: 470px; color: #68655d; font-size: 1.7rem; line-height: 1.65; }
+    .about-default-page__story-media { aspect-ratio: 4 / 5; position: relative; display: flex; align-items: flex-end; overflow: hidden; padding: 3rem; background: #6f5e4c; color: #f5f2ec; font-size: clamp(2rem, 4vw, 4.8rem); line-height: 1; }
+    .about-default-page__story-media::after { content: ''; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(23,23,22,.72)); }
+    .about-default-page__story-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .about-default-page__story-media span { position: relative; z-index: 1; }
+    .about-default-page__values { display: grid; grid-template-columns: .8fr 1.2fr; gap: 5rem; padding-top: 4rem; padding-bottom: clamp(7rem, 12vw, 13rem); border-top: 1px solid rgba(23,23,22,.16); }
+    .about-default-page__value-list { border-top: 1px solid rgba(23,23,22,.16); }
+    .about-default-page__value-list article { display: grid; grid-template-columns: 4rem .8fr 1fr; gap: 1rem; padding: 2rem 0; border-bottom: 1px solid rgba(23,23,22,.16); }
+    .about-default-page__value-list span { color: #b08f4b; font-size: 1.2rem; }
+    .about-default-page__value-list h3 { margin: 0; font-size: 2.1rem; font-weight: 500; }
+    .about-default-page__value-list p { margin: 0; color: #68655d; font-size: 1.5rem; line-height: 1.5; }
+    .about-default-page__closing { padding: clamp(7rem, 13vw, 15rem) 2rem; background: #b08f4b; text-align: center; }
+    .about-default-page__closing .about-default-page__eyebrow { color: #171716; }
+    .about-default-page__closing h2 { max-width: 850px; margin: 0 auto 3rem; }
+    @media screen and (max-width: 749px) {
+      .about-default-page__hero { min-height: 72vh; padding: 7rem 2rem 4rem; }
+      .about-default-page h1 { font-size: clamp(4.5rem, 18vw, 8rem); }
+      .about-default-page__story, .about-default-page__values { display: block; padding-left: 2rem; padding-right: 2rem; }
+      .about-default-page__story > div:first-child { margin-bottom: 4rem; }
+      .about-default-page__values > div:first-child { margin-bottom: 4rem; }
+      .about-default-page__value-list article { grid-template-columns: 3rem 1fr; }
+      .about-default-page__value-list p { grid-column: 2; }
+    }
+  </style>
+{% else %}
+  <div class="page-width page-width--narrow section-{{ section.id }}-padding">
+    <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      {{ page.title | escape }}
+    </h1>
+    <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ page.content }}
+    </div>
+  </div>
+{% endif %}
 
 {% schema %}
 {
