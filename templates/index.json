@@ -1,5 +1,9 @@
 {
   "sections": {
+    "loader": {
+      "type": "loader",
+      "settings": {}
+    },
     "hero_banner": {
       "type": "hero-banner",
       "blocks": {
@@ -378,6 +382,7 @@
     }
   },
   "order": [
+    "loader",
     "hero_banner",
     "trust_bar",
     "featured_collections",
