@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "loader": {
@@ -131,8 +140,9 @@
         "col_2": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Men's Fashion"
+            "collection": "pet-supplies-accessories",
+            "label": "Pet's Toys",
+            "image": "shopify://shop_images/f8b4af5c-bb82-41a4-ba50-bbe0fb94aef2.jpg"
           }
         },
         "col_3": {
@@ -202,7 +212,8 @@
             "title": "-25% Off Items",
             "description": "Spiritual t-shirts crafted with intention and care.",
             "button_label": "Explore Now",
-            "button_url": ""
+            "button_url": "",
+            "image": "shopify://shop_images/6254a52a-67af-4b46-a3ba-bcbd2cd9c61a.jpg"
           }
         }
       },
