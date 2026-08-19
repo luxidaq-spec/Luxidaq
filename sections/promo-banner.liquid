@@ -321,6 +321,22 @@
   gap: 1rem;
 }
 
+@media (min-width: 768px) {
+  .ds-promo-banner__product-slide .ds-card-app {
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .ds-promo-banner__product-slide .ds-card-app__media {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .ds-promo-banner__product-slide .ds-card-app__info {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .ds-promo-banner__layout {
     grid-template-columns: 1fr;
