@@ -15,9 +15,13 @@
 {%- endstyle -%}
 
 <div class="customer account section-{{ section.id }}-padding">
-  <div>
-    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
-    <a href="{{ routes.account_logout_url }}">
+  <div class="account__intro">
+    <div>
+      <p class="account__eyebrow">Your Luxidaq space</p>
+      <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
+      <p class="account__welcome">Welcome back, {{ customer.first_name | default: customer.email | escape }}.</p>
+    </div>
+    <a class="account__logout" href="{{ routes.account_logout_url }}">
       <span class="svg-wrapper">
         {{- 'icon-account.svg' | inline_asset_content -}}
       </span>
@@ -25,8 +29,14 @@
     </a>
   </div>
 
-  <div>
-    <div>
+  <nav class="account__nav" aria-label="Account navigation">
+    <a class="account__nav-link account__nav-link--active" href="{{ routes.account_url }}">Orders</a>
+    <a class="account__nav-link" href="{{ routes.account_addresses_url }}">Profile</a>
+    <a class="account__nav-link" href="/pages/wishlist">Wishlist</a>
+  </nav>
+
+  <div class="account__content">
+    <div class="account__panel account__orders-panel">
       <h2>{{ 'customer.orders.title' | t }}</h2>
 
       {% paginate customer.orders by 20 %}
@@ -88,6 +98,7 @@
           </table>
         {%- else -%}
           <p>{{ 'customer.orders.none' | t }}</p>
+          <a class="account__shop-link" href="{{ routes.all_products_collection_url }}">Explore the collection</a>
         {%- endif -%}
 
         {%- if paginate.pages > 1 -%}
@@ -138,7 +149,7 @@
       {% endpaginate %}
     </div>
 
-    <div>
+    <div class="account__panel account__details-panel">
       <h2>{{ 'customer.account.details' | t }}</h2>
 
       {{ customer.default_address | format_address }}
