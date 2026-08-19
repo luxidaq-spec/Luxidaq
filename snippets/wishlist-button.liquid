@@ -79,10 +79,6 @@
   document.addEventListener('click', function(e) {
     const btn = e.target.closest('[data-wishlist-id]');
     if (!btn) return;
-    {% unless customer %}
-      window.location.href = btn.dataset.accountUrl;
-      return;
-    {% endunless %}
     const id = parseInt(btn.dataset.wishlistId, 10);
     const handle = btn.dataset.wishlistHandle;
     let list = getWishlist();

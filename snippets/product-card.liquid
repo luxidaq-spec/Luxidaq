@@ -509,7 +509,6 @@
       var button = event.target.closest('[data-wishlist-id]');
       if (!button) return;
       event.preventDefault();
-      {% unless customer %}window.location.href = button.dataset.accountUrl; return;{% endunless %}
       var id = Number(button.dataset.wishlistId);
       var list = getWishlist();
       var active = list.some(function (item) { return (typeof item === 'object' ? item.id : item) === id; });
@@ -519,6 +518,13 @@
       saveWishlist(list);
       button.classList.toggle('is-active', !active);
       document.dispatchEvent(new CustomEvent('wishlist:updated'));
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      var list = getWishlist();
+      document.querySelectorAll('[data-wishlist-id]').forEach(function (button) {
+        var id = Number(button.dataset.wishlistId);
+        button.classList.toggle('is-active', list.some(function (item) { return (typeof item === 'object' ? item.id : item) === id; }));
+      });
     });
   }());
 </script>
