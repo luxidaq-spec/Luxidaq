@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "loader": {
@@ -256,67 +265,71 @@
     },
     "hot_deals_video": {
       "type": "hot-deals-video",
-      "settings": {
-        "title": "Hot Deals & Lookbook Highlights",
-        "eyebrow": "EXCLUSIVE SHOWCASE"
-      },
       "blocks": {
-        "hero_deal": {
-          "type": "hero",
+        "small_9ea3fp": {
+          "type": "small",
           "settings": {
-            "discount": "-20%",
-            "discount_label": "OFF",
-            "badge": "🔥 LIMITED TIME",
-            "heading": "Hot Deals You Can't Miss.",
-            "description": "Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.",
-            "button_label": "Discover Now",
-            "link": "/collections/all"
+            "image": "shopify://shop_images/19c085bd-88ba-45c7-b6fd-72704911d36b.webp",
+            "title": "Home & Living '26",
+            "badge": "✨ NEW ARRIVALS",
+            "link_label": "Explore Drop",
+            "link": "",
+            "gold_tag": false,
+            "fallback_image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85"
           }
         },
-        "lookbook_reel": {
+        "hero_W7h3gg": {
+          "type": "hero",
+          "settings": {
+            "image": "shopify://shop_images/bbdbd2896c384201af7e7b4065ed6f1f.jpg",
+            "discount": "",
+            "discount_label": "",
+            "badge": "",
+            "heading": "",
+            "description": "",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "video_nyNFd7": {
           "type": "video",
           "settings": {
+            "image": "shopify://shop_images/03c9164a-8aff-4257-af91-378bbb4e0a52.jpg",
             "title": "Lookbook Reel",
             "badge": "✶ LOOKBOOK REEL",
             "video_label": "WATCH BRAND FILM"
           }
         },
-        "new_arrivals": {
+        "small_gEAL3T": {
           "type": "small",
           "settings": {
+            "image": "shopify://shop_images/636444134298.png",
             "title": "Home & Living '26",
             "badge": "✨ NEW ARRIVALS",
             "link_label": "Explore Drop",
-            "link": "/collections/all",
+            "link": "",
             "gold_tag": false,
             "fallback_image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85"
-          }
-        },
-        "best_sellers": {
-          "type": "small",
-          "settings": {
-            "title": "Community Favorites",
-            "badge": "★ TOP RATED",
-            "link_label": "Shop Best Sellers",
-            "link": "/collections/all",
-            "gold_tag": true,
-            "fallback_image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=85"
           }
         }
       },
       "block_order": [
-        "hero_deal",
-        "lookbook_reel",
-        "new_arrivals",
-        "best_sellers"
-      ]
+        "small_9ea3fp",
+        "hero_W7h3gg",
+        "video_nyNFd7",
+        "small_gEAL3T"
+      ],
+      "settings": {
+        "title": "Hot Deals & Lookbook Highlights",
+        "eyebrow": "EXCLUSIVE SHOWCASE"
+      }
     },
     "featured_blog": {
       "type": "featured-blog",
       "settings": {
         "title": "Our Latest Blog",
         "subtitle": "Follow the most popular trends and get exclusive items from Luxidaq.",
-        "blog": ""
+        "blog": "news"
       }
     },
     "brand_logos": {
@@ -412,7 +425,7 @@
         "button_url": "/collections/all",
         "secondary_button_label": "Explore All Deals",
         "secondary_button_url": "/collections",
-        "show_timer": true,
+        "show_timer": false,
         "bg_style": "dark_mesh",
         "overlay_opacity": 55,
         "min_height": 500,
