@@ -267,6 +267,7 @@
         list = active ? list.filter(function (item) { return (typeof item === 'object' ? item.id : item) !== id; }) : list.concat([{ id: id, handle: button.dataset.wishlistHandle }]);
         localStorage.setItem('ds_wishlist', JSON.stringify(list));
         button.classList.toggle('is-active', !active);
+        document.dispatchEvent(new CustomEvent('wishlist:updated'));
       });
     }());
   </script>

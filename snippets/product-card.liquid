@@ -518,6 +518,7 @@
         : list.concat([{ id: id, handle: button.dataset.wishlistHandle }]);
       saveWishlist(list);
       button.classList.toggle('is-active', !active);
+      document.dispatchEvent(new CustomEvent('wishlist:updated'));
     });
   }());
 </script>

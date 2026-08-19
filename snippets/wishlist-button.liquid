@@ -94,6 +94,7 @@
     }
     saveWishlist(list);
     syncWishlistBtns();
+    document.dispatchEvent(new CustomEvent('wishlist:updated'));
   });
   document.addEventListener('DOMContentLoaded', syncWishlistBtns);
 })();

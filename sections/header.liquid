@@ -307,7 +307,7 @@
 
           <a href="/pages/wishlist" class="wm-action-btn wm-action-btn--badge" aria-label="Wishlist">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span class="wm-action-badge">0</span>
+            <span class="wm-action-badge" data-wishlist-count>0</span>
           </a>
 
           {%- comment -%} Cart Pill Button with Live Total {%- endcomment -%}
@@ -353,7 +353,7 @@
 
         <a href="/pages/wishlist" class="wm-mobile-action-btn wm-mobile-action-btn--badge" aria-label="Wishlist" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #F4F5FE !important; color: #121316 !important; text-decoration: none !important; position: relative !important; flex-shrink: 0 !important;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span class="wm-action-badge" style="position: absolute !important; top: -3px !important; right: -3px !important;">0</span>
+          <span class="wm-action-badge" data-wishlist-count style="position: absolute !important; top: -3px !important; right: -3px !important;">0</span>
         </a>
 
         <a href="{{ routes.cart_url }}" class="wm-mobile-cart-btn" aria-label="Cart" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #121316 !important; color: #FFFFFF !important; text-decoration: none !important; position: relative !important; flex-shrink: 0 !important;">
@@ -382,6 +382,22 @@
   </div>
 
 </header>
+
+<script>
+  (function () {
+    function updateWishlistCount() {
+      var count = 0;
+      try { count = JSON.parse(localStorage.getItem('ds_wishlist') || '[]').length; } catch (error) {}
+      document.querySelectorAll('[data-wishlist-count]').forEach(function (element) {
+        element.textContent = count;
+        element.hidden = count === 0;
+      });
+    }
+    document.addEventListener('DOMContentLoaded', updateWishlistCount);
+    document.addEventListener('wishlist:updated', updateWishlistCount);
+    window.addEventListener('storage', updateWishlistCount);
+  }());
+</script>
 
 <style>
 /* ════════════════════════════════════════════════════════════
