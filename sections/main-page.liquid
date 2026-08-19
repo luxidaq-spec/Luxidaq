@@ -105,6 +105,8 @@
       <h2>How do I contact Luxidaq?</h2><p>Email <a href="mailto:luxidaq@gmail.com">luxidaq@gmail.com</a> and include your order number where relevant.</p>
     </div>
   </div>
+{% elsif page.handle == 'wishlist' %}
+  {% render 'wishlist-content' %}
 {% elsif page.handle == 'about-us' %}
   <div class="about-default-page">
     <div class="about-default-page__hero">

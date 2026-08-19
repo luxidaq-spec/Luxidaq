@@ -13,79 +13,78 @@
 
     {%- comment -%} HEADER {%- endcomment -%}
     <div class="ds-bento__header">
-      <span class="ds-bento__eyebrow">✶ EXCLUSIVE SHOWCASE ✶</span>
-      <h2 class="ds-bento__title">Hot Deals &amp; Lookbook Highlights</h2>
+      <span class="ds-bento__eyebrow">✶ {{ section.settings.eyebrow }} ✶</span>
+      <h2 class="ds-bento__title">{{ section.settings.title }}</h2>
     </div>
 
     {%- comment -%} BENTO GRID {%- endcomment -%}
     <div class="ds-bento__grid">
 
-      {%- comment -%} ━━━ CARD 1: HERO DEAL (large, spans 2 rows) ━━━ {%- endcomment -%}
-      <div class="ds-bento-card ds-bento-card--hero">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'hero' -%}
+          <div class="ds-bento-card ds-bento-card--hero" {{ block.shopify_attributes }}>
         <div class="ds-bento-card__bg">
-          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=900&auto=format&fit=crop&q=85" alt="Hot Deals" class="ds-bento-card__img" loading="lazy">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'ds-bento-card__img', loading: 'lazy', alt: block.settings.heading }}
+          {%- else -%}
+            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=900&auto=format&fit=crop&q=85" alt="{{ block.settings.heading | escape }}" class="ds-bento-card__img" loading="lazy">
+          {%- endif -%}
         </div>
         <div class="ds-bento-card__gradient"></div>
 
         {%- comment -%} Discount badge {%- endcomment -%}
         <div class="ds-bento-disc">
-          <span class="ds-bento-disc__num">-20%</span>
-          <span class="ds-bento-disc__sub">OFF</span>
+          <span class="ds-bento-disc__num">{{ block.settings.discount }}</span>
+          <span class="ds-bento-disc__sub">{{ block.settings.discount_label }}</span>
         </div>
 
         <div class="ds-bento-card__body">
-          <div class="ds-bento-card__pill">🔥 LIMITED TIME</div>
-          <h3 class="ds-bento-card__heading">Hot Deals You<br>Can't Miss.</h3>
-          <p class="ds-bento-card__desc">Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.</p>
-          <a href="/collections/all" class="ds-bento-card__btn">
-            <span>Discover Now</span>
+          <div class="ds-bento-card__pill">{{ block.settings.badge }}</div>
+          <h3 class="ds-bento-card__heading">{{ block.settings.heading }}</h3>
+          <p class="ds-bento-card__desc">{{ block.settings.description }}</p>
+          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="ds-bento-card__btn">
+            <span>{{ block.settings.button_label }}</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         </div>
       </div>
-
-      {%- comment -%} ━━━ CARD 2: VIDEO REEL (wide) ━━━ {%- endcomment -%}
-      <div class="ds-bento-card ds-bento-card--video">
+        {%- elsif block.type == 'video' -%}
+      <div class="ds-bento-card ds-bento-card--video" {{ block.shopify_attributes }}>
         <div class="ds-bento-card__bg">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=85" alt="Lookbook Reel" class="ds-bento-card__img" loading="lazy">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1600 | image_tag: class: 'ds-bento-card__img', loading: 'lazy', alt: block.settings.title }}
+          {%- else -%}
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=85" alt="{{ block.settings.title | escape }}" class="ds-bento-card__img" loading="lazy">
+          {%- endif -%}
         </div>
         <div class="ds-bento-card__gradient ds-bento-card__gradient--full"></div>
-        <span class="ds-bento-card__tag">✶ LOOKBOOK REEL</span>
+        <span class="ds-bento-card__tag">{{ block.settings.badge }}</span>
         <div class="ds-bento-video-center">
           <button class="ds-bento-play" aria-label="Play video" type="button">
             <span class="ds-bento-play__ring"></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
           </button>
-          <span class="ds-bento-video-label">WATCH BRAND FILM</span>
+          <span class="ds-bento-video-label">{{ block.settings.video_label }}</span>
         </div>
       </div>
-
-      {%- comment -%} ━━━ CARD 3: NEW ARRIVALS ━━━ {%- endcomment -%}
-      <div class="ds-bento-card ds-bento-card--small">
+        {%- elsif block.type == 'small' -%}
+      <div class="ds-bento-card ds-bento-card--small" {{ block.shopify_attributes }}>
         <div class="ds-bento-card__bg">
-          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85" alt="New Arrivals" class="ds-bento-card__img" loading="lazy">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1000 | image_tag: class: 'ds-bento-card__img', loading: 'lazy', alt: block.settings.title }}
+          {%- else -%}
+            <img src="{{ block.settings.fallback_image }}" alt="{{ block.settings.title | escape }}" class="ds-bento-card__img" loading="lazy">
+          {%- endif -%}
         </div>
         <div class="ds-bento-card__gradient"></div>
-        <span class="ds-bento-card__tag">✨ NEW ARRIVALS</span>
+        <span class="ds-bento-card__tag{% if block.settings.gold_tag %} ds-bento-card__tag--gold{% endif %}">{{ block.settings.badge }}</span>
         <div class="ds-bento-card__body">
-          <h4 class="ds-bento-card__sub-heading">Home &amp; Living '26</h4>
-          <a href="/collections/all" class="ds-bento-card__text-link">Explore Drop &rarr;</a>
+          <h4 class="ds-bento-card__sub-heading">{{ block.settings.title }}</h4>
+          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="ds-bento-card__text-link">{{ block.settings.link_label }} &rarr;</a>
         </div>
       </div>
-
-      {%- comment -%} ━━━ CARD 4: BEST SELLERS ━━━ {%- endcomment -%}
-      <div class="ds-bento-card ds-bento-card--small">
-        <div class="ds-bento-card__bg">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=85" alt="Best Sellers" class="ds-bento-card__img" loading="lazy">
-        </div>
-        <div class="ds-bento-card__gradient"></div>
-        <span class="ds-bento-card__tag ds-bento-card__tag--gold">★ TOP RATED</span>
-        <div class="ds-bento-card__body">
-          <h4 class="ds-bento-card__sub-heading">Community Favorites</h4>
-          <a href="/collections/all" class="ds-bento-card__text-link">Shop Best Sellers &rarr;</a>
-        </div>
-      </div>
-
+        {%- endif -%}
+      {%- endfor -%}
     </div>
   </div>
 </section>
@@ -772,9 +771,57 @@
       "default": "EXCLUSIVE SHOWCASE"
     }
   ],
+  "blocks": [
+    {
+      "type": "hero",
+      "name": "Hero deal card",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card image" },
+        { "type": "text", "id": "discount", "label": "Discount", "default": "-20%" },
+        { "type": "text", "id": "discount_label", "label": "Discount label", "default": "OFF" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "🔥 LIMITED TIME" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Hot Deals You Can't Miss." },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Upgrade your wardrobe with exclusive seasonal discounts before stock runs out." },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Discover Now" },
+        { "type": "url", "id": "link", "label": "Button link" }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Lookbook reel card",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card image" },
+        { "type": "text", "id": "title", "label": "Image alt text", "default": "Lookbook Reel" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "✶ LOOKBOOK REEL" },
+        { "type": "text", "id": "video_label", "label": "Video label", "default": "WATCH BRAND FILM" }
+      ]
+    },
+    {
+      "type": "small",
+      "name": "Small highlight card",
+      "limit": 2,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Home & Living '26" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "✨ NEW ARRIVALS" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Explore Drop" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "gold_tag", "label": "Use gold badge style", "default": false },
+        { "type": "text", "id": "fallback_image", "label": "Fallback image URL", "default": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85" }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Exclusive Showcase"
+      "name": "Exclusive Showcase",
+      "blocks": [
+        { "type": "hero" },
+        { "type": "video" },
+        { "type": "small" },
+        { "type": "small", "settings": { "title": "Community Favorites", "badge": "★ TOP RATED", "link_label": "Shop Best Sellers", "gold_tag": true, "fallback_image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=85" } }
+      ]
     }
   ]
 }

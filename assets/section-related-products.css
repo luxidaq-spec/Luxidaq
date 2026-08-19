@@ -174,6 +174,15 @@
   background: #ffffff;
 }
 
+.luxury-product-card__wishlist.is-active {
+  background: #e05a2b;
+  color: #ffffff;
+}
+
+.luxury-product-card__wishlist.is-active svg {
+  fill: currentColor;
+}
+
 .luxury-product-card__wishlist svg {
   width: 24px;
   height: 24px;

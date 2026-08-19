@@ -268,6 +268,56 @@
       "settings": {
         "title": "Hot Deals & Lookbook Highlights",
         "eyebrow": "EXCLUSIVE SHOWCASE"
+      },
+      "blocks": {
+        "hero_deal": {
+          "type": "hero",
+          "settings": {
+            "discount": "-20%",
+            "discount_label": "OFF",
+            "badge": "🔥 LIMITED TIME",
+            "heading": "Hot Deals You Can't Miss.",
+            "description": "Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.",
+            "button_label": "Discover Now",
+            "link": "/collections/all"
+          }
+        },
+        "lookbook_reel": {
+          "type": "video",
+          "settings": {
+            "title": "Lookbook Reel",
+            "badge": "✶ LOOKBOOK REEL",
+            "video_label": "WATCH BRAND FILM"
+          }
+        },
+        "new_arrivals": {
+          "type": "small",
+          "settings": {
+            "title": "Home & Living '26",
+            "badge": "✨ NEW ARRIVALS",
+            "link_label": "Explore Drop",
+            "link": "/collections/all",
+            "gold_tag": false,
+            "fallback_image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85"
+          }
+        },
+        "best_sellers": {
+          "type": "small",
+          "settings": {
+            "title": "Community Favorites",
+            "badge": "★ TOP RATED",
+            "link_label": "Shop Best Sellers",
+            "link": "/collections/all",
+            "gold_tag": true,
+            "fallback_image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=85"
+          }
+        }
+      },
+      "block_order": [
+        "hero_deal",
+        "lookbook_reel",
+        "new_arrivals",
+        "best_sellers"
       }
     },
     "featured_blog": {
