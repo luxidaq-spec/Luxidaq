@@ -95,7 +95,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: center;
+  align-items: start;
   gap: 2rem;
 }
 
@@ -111,11 +111,17 @@
   align-items: center;
   gap: 1.25rem;
 
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #000000;
     border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.ds-promo-banner__product-slide {
+  display: none;
+}
+
+.ds-promo-banner__product-slide.is-active {
+  display: block;
 }
 
 /* Eyebrow Badge */
@@ -311,7 +317,7 @@
 
 .ds-promo-banner__product-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
 }
 
@@ -431,7 +437,9 @@
           <div class="ds-promo-banner__product-grid">
             {%- for product in section.settings.special_collection.products limit: 4 -%}
               {%- if product.available -%}
-                {% render 'product-card', product: product, show_quick_view: false, lazy: true %}
+                <div class="ds-promo-banner__product-slide" data-promo-product-slide>
+                  {% render 'product-card', product: product, show_quick_view: false, lazy: true %}
+                </div>
               {%- endif -%}
             {%- endfor -%}
           </div>
@@ -470,6 +478,37 @@
     document.addEventListener('DOMContentLoaded', startPromoTimer);
   } else {
     startPromoTimer();
+  }
+})();
+</script>
+{%- endif -%}
+
+{%- if section.settings.special_collection != blank and section.settings.special_collection.products_count > 0 -%}
+<script>
+(function() {
+  function rotatePromoProduct() {
+    let slides = Array.from(document.querySelectorAll('[data-promo-product-slide]'));
+    if (!slides.length) return;
+
+    let dayLength = 24 * 60 * 60 * 1000;
+    let currentDay = Math.floor(Date.now() / dayLength);
+    let activeIndex = currentDay % slides.length;
+
+    slides.forEach(function(slide, index) {
+      slide.classList.toggle('is-active', index === activeIndex);
+    });
+
+    let nextRotation = dayLength - (Date.now() % dayLength);
+    window.setTimeout(function() {
+      rotatePromoProduct();
+      window.setInterval(rotatePromoProduct, dayLength);
+    }, nextRotation);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rotatePromoProduct);
+  } else {
+    rotatePromoProduct();
   }
 })();
 </script>
