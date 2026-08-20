@@ -202,17 +202,18 @@
             "title": "Spring Collection",
             "description": "Spiritual t-shirts crafted with intention and care.",
             "button_label": "Explore Now",
-            "button_url": ""
+            "button_url": "shopify://collections/home-organization-decor",
+            "image": "shopify://shop_images/1d9ed0b3-3bd4-4e4e-b180-9c00cbfb33d5.webp"
           }
         },
         "b2": {
           "type": "banner",
           "settings": {
             "eyebrow": "New Arrival",
-            "title": "-25% Off Items",
+            "title": "",
             "description": "Spiritual t-shirts crafted with intention and care.",
             "button_label": "Explore Now",
-            "button_url": "",
+            "button_url": "shopify://collections/pet-supplies-accessories",
             "image": "shopify://shop_images/6254a52a-67af-4b46-a3ba-bcbd2cd9c61a.jpg"
           }
         }
