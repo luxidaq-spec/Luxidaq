@@ -18,7 +18,7 @@
             src="{{ 'Luxidaq-logo.png' | asset_url }}"
             alt="{{ shop.name }}"
             class="wm-header__logo-img"
-            width="180"
+            width="380"
             height="auto"
             loading="eager"
           >
@@ -135,8 +135,12 @@
                               {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
                               {%- for cat in default_cats -%}
                                 {%- assign cat_handle = cat | handleize -%}
+                                {%- if cat_handle == 'home-organisation-decor' -%}
+                                  {%- assign cat_handle = 'home-organization-decor' -%}
+                                {%- endif -%}
                                 {%- assign matched_col = collections[cat_handle] -%}
-                                {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+                                {%- assign fallback_url = '/collections/' | append: cat_handle -%}
+                                {%- assign col_url = matched_col.url | default: fallback_url -%}
                                 <a href="{{ col_url }}" class="wm-megamenu-card">
                                   <span class="wm-megamenu-card__icon">
                                     {%- render 'category-icon', title: cat -%}
@@ -229,8 +233,12 @@
                             {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
                             {%- for cat in default_cats -%}
                               {%- assign cat_handle = cat | handleize -%}
+                              {%- if cat_handle == 'home-organisation-decor' -%}
+                                {%- assign cat_handle = 'home-organization-decor' -%}
+                              {%- endif -%}
                               {%- assign matched_col = collections[cat_handle] -%}
-                              {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+                              {%- assign fallback_url = '/collections/' | append: cat_handle -%}
+                              {%- assign col_url = matched_col.url | default: fallback_url -%}
                               <a href="{{ col_url }}" class="wm-megamenu-card">
                                 <span class="wm-megamenu-card__icon">
                                   {%- render 'category-icon', title: cat -%}
@@ -333,9 +341,16 @@
         <div class="wm-mobile-logo" style="display: inline-flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; width: auto !important; flex-shrink: 0 !important;">
           <a href="{{ routes.root_url }}" class="wm-mobile-logo-link" style="display: inline-flex !important; align-items: center !important; text-decoration: none !important;">
             {%- if settings.logo != blank -%}
-              {{ settings.logo | image_url: width: 300 | image_tag: class: 'wm-mobile-logo-img', alt: shop.name }}
+              {{ settings.logo | image_url: width: 400 | image_tag: class: 'wm-mobile-logo-img', alt: shop.name }}
             {%- else -%}
-              <span class="wm-header__logo-text" style="font-size: 1.4rem !important; line-height: 1 !important; margin: 0 !important;">{{ section.settings.logo_text | default: shop.name }}<span>.</span></span>
+              <img
+                src="{{ 'Luxidaq-logo.png' | asset_url }}"
+                alt="{{ shop.name }}"
+                class="wm-mobile-logo-img"
+                width="260"
+                height="auto"
+                loading="eager"
+              >
             {%- endif -%}
           </a>
         </div>
@@ -417,10 +432,11 @@
 
 .wm-header__logo-text {
   font-family: var(--font-heading);
-  font-size: 2.25rem;
-  font-weight: 800;
+  font-size: 4.5rem;
+  font-weight: 900;
   letter-spacing: -0.03em;
   color: #121316;
+  line-height: 1;
 }
 
 .wm-header__logo-text span {
@@ -428,8 +444,9 @@
 }
 
 .wm-header__logo-img {
-  max-height: 48px;
+  max-height: 130px;
   width: auto;
+  object-fit: contain;
 }
 
 /* SEARCH CONTAINER */
@@ -1094,13 +1111,13 @@
 }
 
 .wm-mobile-logo .wm-header__logo-text {
-  font-size: 1.4rem !important;
+  font-size: 2.8rem !important;
   line-height: 1 !important;
   margin: 0 !important;
 }
 
 .wm-mobile-logo-img {
-  max-height: 32px !important;
+  max-height: 75px !important;
   width: auto !important;
 }
 

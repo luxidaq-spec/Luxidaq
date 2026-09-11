@@ -60,8 +60,12 @@
 
           {%- for cat in default_cats -%}
             {%- assign cat_handle = cat | handleize -%}
+            {%- if cat_handle == 'home-organisation-decor' -%}
+              {%- assign cat_handle = 'home-organization-decor' -%}
+            {%- endif -%}
             {%- assign matched_col = collections[cat_handle] -%}
-            {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+            {%- assign fallback_url = '/collections/' | append: cat_handle -%}
+            {%- assign col_url = matched_col.url | default: fallback_url -%}
             
             <li class="wm-drawer__menu-item">
               <a href="{{ col_url }}" class="wm-drawer__menu-link">
