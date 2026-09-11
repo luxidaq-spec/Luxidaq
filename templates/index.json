@@ -133,8 +133,9 @@
         "col_1": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Girls Fashion"
+            "collection": "auto-parts-accessories",
+            "label": "Auto Parts Accessories",
+            "image": "shopify://shop_images/2402140704210327900.jpg"
           }
         },
         "col_2": {
@@ -148,22 +149,25 @@
         "col_3": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "New Arrival"
+            "collection": "toys-games",
+            "label": "Toys And Games",
+            "image": "shopify://shop_images/8cc6c74f-059a-46ae-aa18-f1708688c313.jpg"
           }
         },
         "col_4": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Top Sales"
+            "collection": "cleaning-supplies",
+            "label": "Cleaning Supplies",
+            "image": "shopify://shop_images/ed50ce36-0ecb-4f63-9195-2a9eea46db2d.jpg"
           }
         },
         "col_5": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Winter Fashion"
+            "collection": "skincare-beauty",
+            "label": "Skincare Beauty",
+            "image": "shopify://shop_images/aef1c20d-ad22-45dc-a15e-6ed3cf9cdedd.jpg"
           }
         }
       },
@@ -282,14 +286,14 @@
         "hero_W7h3gg": {
           "type": "hero",
           "settings": {
-            "image": "shopify://shop_images/bbdbd2896c384201af7e7b4065ed6f1f.jpg",
+            "image": "shopify://shop_images/6ee36764-5f0a-417b-b0b1-d91992c648fb.jpg",
             "discount": "",
             "discount_label": "",
             "badge": "",
             "heading": "",
             "description": "",
             "button_label": "",
-            "link": ""
+            "link": "https://luxidaq.com/products/ouhoe-pumpkin-enzyme-mask-facial-skin-deep-cleansing-pores-gentle-nourishing-skin-care-mud-mask"
           }
         },
         "video_nyNFd7": {
