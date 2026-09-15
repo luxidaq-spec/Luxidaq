@@ -56,7 +56,7 @@
           {%- endfor -%}
         {%- else -%}
           {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
-          {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies,Sports Equipment & Supplies' | split: ',' -%}
+          {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies' | split: ',' -%}
 
           {%- for cat in default_cats -%}
             {%- assign cat_handle = cat | handleize -%}
