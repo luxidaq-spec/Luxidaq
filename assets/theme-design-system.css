@@ -514,3 +514,14 @@ p { line-height: var(--line-height-normal); color: var(--color-text-secondary); 
   align-items: center !important;
   justify-content: center !important;
 }
+
+@media screen and (max-width: 989px) {
+  html,
+  body,
+  .shopify-section,
+  .shopify-section-group-header-group,
+  .content-for-layout {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
