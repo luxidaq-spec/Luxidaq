@@ -1,0 +1,137 @@
+{%- comment -%}
+  Section: New Arrivals
+  Shows the most recently added products from the selected collection.
+{%- endcomment -%}
+
+{%- liquid
+  assign source_collection = collections[section.settings.collection]
+  assign newest_products = source_collection.products | sort: 'created_at' | reverse
+-%}
+
+<section class="ds-new-arrivals" id="section-{{ section.id }}">
+  <div class="ds-container">
+    <div class="ds-new-arrivals__header">
+      <span class="ds-new-arrivals__eyebrow">✦ JUST IN ✦</span>
+      <h2 class="ds-new-arrivals__title">{{ section.settings.title | default: 'New Arrivals' }}</h2>
+      <p class="ds-new-arrivals__subtitle">{{ section.settings.subtitle | default: 'Discover the latest additions to Luxidaq.' }}</p>
+    </div>
+
+    <div class="ds-new-arrivals__grid">
+      {%- if source_collection != blank and source_collection.products.size > 0 -%}
+        {%- for product in newest_products limit: 10 -%}
+          {%- render 'product-card',
+            product: product,
+            show_badge: true,
+            show_rating: true,
+            show_wishlist: true,
+            show_quick_view: true,
+            show_vendor: true,
+            lazy: true
+          -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ds-new-arrivals {
+    padding: 5rem 0 5.5rem;
+    background: #FFFFFF;
+  }
+
+  .ds-new-arrivals__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .ds-new-arrivals__eyebrow {
+    color: var(--accent-orange, #E05A2B);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ds-new-arrivals__title {
+    margin: 0;
+    color: #121316;
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    font-weight: 800;
+  }
+
+  .ds-new-arrivals__subtitle {
+    max-width: 540px;
+    margin: 0;
+    color: #555B68;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+  }
+
+  .ds-new-arrivals__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 1199px) {
+    .ds-new-arrivals__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+  @media (max-width: 899px) {
+    .ds-new-arrivals {
+      padding: 3.5rem 0 4rem;
+    }
+
+    .ds-new-arrivals__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .ds-new-arrivals__grid {
+      gap: 0.75rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "New Arrivals",
+  "tag": "section",
+  "class": "section-new-arrivals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Discover the latest additions to Luxidaq."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Source collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Arrivals"
+    }
+  ]
+}
+{% endschema %}

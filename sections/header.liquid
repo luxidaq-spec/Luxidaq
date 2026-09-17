@@ -100,7 +100,7 @@
                   {%- endif -%}
 
                   <li class="wm-main-menu__item{% if is_megamenu %} has-megamenu{% endif %}">
-                    <a href="{{ link.url }}" class="wm-main-menu__link{% if link.current %} is-active{% endif %}">
+                    <a href="{% if link_title_lower contains 'cat' %}/collections{% else %}{{ link.url }}{% endif %}" class="wm-main-menu__link{% if link.current %} is-active{% endif %}">
                       <span>{{ link.title | escape }}</span>
                       {%- if link.current -%}
                         <span class="wm-active-dot"></span>
@@ -149,28 +149,16 @@
                                   </a>
                                 {%- endfor -%}
                               {%- endif -%}
-                            </div>
-                          </div>
-
-                          {%- comment -%} MIDDLE COLUMN: Subcategories Featured Panel {%- endcomment -%}
-                          <div class="wm-megamenu-col wm-megamenu-col--subcategories">
-                            <div class="wm-megamenu-col-header">
-                              <span class="wm-megamenu-eyebrow">✦ FEATURED SUBCATEGORIES ✦</span>
-                              <h4 class="wm-megamenu-col-title">Sports & Outdoor Supplies</h4>
-                            </div>
-
-                            <div class="wm-megamenu-sublist">
                               {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies' | split: ',' -%}
                               {%- for sub in sports_subs -%}
                                 {%- assign sub_handle = sub | handleize -%}
                                 {%- assign matched_sub = collections[sub_handle] -%}
                                 {%- assign sub_url = matched_sub.url | default: '/collections/sports-outdoor-supplies' -%}
-                                <a href="{{ sub_url }}" class="wm-megamenu-sublink">
-                                  <span class="wm-megamenu-card__icon wm-megamenu-card__icon--sub">
+                                <a href="{{ sub_url }}" class="wm-megamenu-card">
+                                  <span class="wm-megamenu-card__icon">
                                     {%- render 'category-icon', title: sub -%}
                                   </span>
-                                  <span class="wm-megamenu-sublink__text">{{ sub }}</span>
-                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                  <span class="wm-megamenu-card__title">{{ sub }}</span>
                                 </a>
                               {%- endfor -%}
                             </div>
@@ -208,7 +196,7 @@
                   {%- endif -%}
 
                   <li class="wm-main-menu__item{% if is_megamenu %} has-megamenu{% endif %}">
-                    <a href="{% if item == 'Home' %}/{% elsif item == 'About Us' %}/pages/about-us{% elsif item == 'Contact' %}/pages/contact{% else %}/collections/all{% endif %}" class="wm-main-menu__link{% if item == 'Home' %} is-active{% endif %}">
+                    <a href="{% if item == 'Home' %}/{% elsif item == 'Categories' %}/collections{% elsif item == 'About Us' %}/pages/about-us{% elsif item == 'Contact' %}/pages/contact{% else %}/collections/all{% endif %}" class="wm-main-menu__link{% if item == 'Home' %} is-active{% endif %}">
                       <span>{{ item }}</span>
                       {%- if item == 'Home' -%}
                         <span class="wm-active-dot"></span>
@@ -246,28 +234,16 @@
                                   <span class="wm-megamenu-card__title">{{ cat }}</span>
                                 </a>
                               {%- endfor -%}
-                            </div>
-                          </div>
-
-                          {%- comment -%} MIDDLE COLUMN: Subcategories Featured Panel {%- endcomment -%}
-                          <div class="wm-megamenu-col wm-megamenu-col--subcategories">
-                            <div class="wm-megamenu-col-header">
-                              <span class="wm-megamenu-eyebrow">✦ FEATURED SUBCATEGORIES ✦</span>
-                              <h4 class="wm-megamenu-col-title">Sports & Outdoor Supplies</h4>
-                            </div>
-
-                            <div class="wm-megamenu-sublist">
                               {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies' | split: ',' -%}
                               {%- for sub in sports_subs -%}
                                 {%- assign sub_handle = sub | handleize -%}
                                 {%- assign matched_sub = collections[sub_handle] -%}
                                 {%- assign sub_url = matched_sub.url | default: '/collections/sports-outdoor-supplies' -%}
-                                <a href="{{ sub_url }}" class="wm-megamenu-sublink">
-                                  <span class="wm-megamenu-card__icon wm-megamenu-card__icon--sub">
+                                <a href="{{ sub_url }}" class="wm-megamenu-card">
+                                  <span class="wm-megamenu-card__icon">
                                     {%- render 'category-icon', title: sub -%}
                                   </span>
-                                  <span class="wm-megamenu-sublink__text">{{ sub }}</span>
-                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                                  <span class="wm-megamenu-card__title">{{ sub }}</span>
                                 </a>
                               {%- endfor -%}
                             </div>
@@ -329,7 +305,6 @@
     </div>
 
     {%- comment -%} ════ MOBILE HEADER (MAX-WIDTH: 989PX) ════ {%- endcomment -%}
-    {%- comment -%} ════ MOBILE HEADER (MAX-WIDTH: 989PX) ════ {%- endcomment -%}
     <div class="wm-header__mobile large-up-hide">
       {%- comment -%} Mobile Row 1: Centered Logo {%- endcomment -%}
       <div class="wm-mobile-logo-row">
@@ -348,27 +323,27 @@
       </div>
 
       {%- comment -%} Mobile Row 2: Hamburger and Actions {%- endcomment -%}
-      <div class="wm-mobile-top" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 44px !important; margin-bottom: 8px !important; flex-wrap: nowrap !important;">
-        <div class="wm-mobile-left" style="display: flex !important; flex-direction: row !important; align-items: center !important; gap: 6px !important; flex: 1 1 auto !important; min-width: 0 !important; width: auto !important;">
-          <button type="button" class="wm-mobile-toggle" onclick="openWmMobileDrawer()" aria-label="Open navigation menu" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; background: transparent !important; border: none !important; padding: 4px !important; margin: 0 !important; cursor: pointer !important; width: 36px !important; min-width: 36px !important; height: 36px !important; color: #121316 !important; flex: 0 0 36px !important; position: relative !important; z-index: 2 !important;">
+      <div class="wm-mobile-top">
+        <div class="wm-mobile-left">
+          <button type="button" class="wm-mobile-toggle" onclick="openWmMobileDrawer()" aria-label="Open navigation menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
 
         </div>
 
-        <div class="wm-mobile-actions" style="display: flex !important; flex-direction: row !important; align-items: center !important; gap: 8px !important; flex-shrink: 0 !important; width: auto !important;">
-            <a href="{{ routes.account_login_url }}" class="wm-mobile-action-btn" aria-label="Sign in" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #F4F5FE !important; color: #121316 !important; text-decoration: none !important; flex-shrink: 0 !important;">
+        <div class="wm-mobile-actions">
+          <a href="{{ routes.account_login_url }}" class="wm-mobile-action-btn" aria-label="Sign in">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </a>
 
-          <a href="/pages/wishlist" class="wm-mobile-action-btn wm-mobile-action-btn--badge" aria-label="Wishlist" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #F4F5FE !important; color: #121316 !important; text-decoration: none !important; position: relative !important; flex-shrink: 0 !important;">
+          <a href="/pages/wishlist" class="wm-mobile-action-btn wm-mobile-action-btn--badge" aria-label="Wishlist">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <span class="wm-action-badge" data-wishlist-count style="position: absolute !important; top: -3px !important; right: -3px !important;">0</span>
+            <span class="wm-action-badge" data-wishlist-count>0</span>
           </a>
 
-          <a href="{{ routes.cart_url }}" class="wm-mobile-cart-btn" aria-label="Cart" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; border-radius: 50% !important; background: #121316 !important; color: #FFFFFF !important; text-decoration: none !important; position: relative !important; flex-shrink: 0 !important;">
+          <a href="{{ routes.cart_url }}" class="wm-mobile-cart-btn" aria-label="Cart">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            <span class="wm-cart-btn__badge" style="position: absolute !important; top: -3px !important; right: -3px !important;">{{ cart.item_count }}</span>
+            <span class="wm-cart-btn__badge">{{ cart.item_count }}</span>
           </a>
         </div>
       </div>
@@ -555,6 +530,8 @@
     background: #F8F9FD;
     border-top: 1px solid #E5E8F0;
     border-bottom: 1px solid #E5E8F0;
+  }
+
   /* 3-PART BALANCED HEADER CONTAINER */
   .wm-header__nav-container {
     display: flex;
@@ -729,7 +706,7 @@
 
   .wm-megamenu-inner {
     display: grid;
-    grid-template-columns: 2.2fr 1.2fr 1fr;
+    grid-template-columns: minmax(0, 1fr) 220px;
     gap: 24px;
     text-align: left;
   }
@@ -757,10 +734,10 @@
     margin: 0;
   }
 
-  /* CATEGORIES GRID (2-COL) */
+  /* CATEGORIES GRID (4-COL) */
   .wm-megamenu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px 12px;
   }
 
@@ -807,62 +784,6 @@
 
   .wm-megamenu-card:hover .wm-megamenu-card__title {
     color: var(--color-accent-gold, #C9A96E);
-  }
-
-  /* SUBCATEGORIES LIST */
-  .wm-megamenu-sublist {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .wm-megamenu-sublink {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    background: #F8F9FD;
-    border: 1px solid #E5E8F0;
-    text-decoration: none;
-    transition: all 200ms ease;
-  }
-
-  .wm-megamenu-sublink:hover {
-    background: #121316;
-    border-color: #121316;
-    color: #FFFFFF;
-    transform: translateX(3px);
-  }
-
-  .wm-megamenu-card__icon--sub {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    background: rgba(201, 169, 110, 0.15);
-    color: var(--color-accent-gold, #C9A96E);
-  }
-
-  .wm-megamenu-sublink__text {
-    flex: 1;
-    font-size: 0.84375rem;
-    font-weight: 700;
-    color: #121316;
-    transition: color 200ms ease;
-  }
-
-  .wm-megamenu-sublink:hover .wm-megamenu-sublink__text {
-    color: #FFFFFF;
-  }
-
-  .wm-megamenu-sublink svg {
-    color: #8E95A2;
-    transition: all 200ms ease;
-  }
-
-  .wm-megamenu-sublink:hover svg {
-    color: var(--color-accent-gold, #C9A96E);
-    transform: translateX(2px);
   }
 
   /* PROMO VISUAL TILE */
@@ -1075,172 +996,129 @@
 
   /* MOBILE STYLES */
   .wm-mobile-logo-row {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    height: 48px !important;
-    margin-bottom: 6px !important;
-    overflow: hidden !important;
-  }
-
-  .wm-mobile-logo-row .wm-mobile-logo {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-    height: 48px !important;
-    max-height: 48px !important;
-    margin: 0 !important;
-  }
-
-  .wm-mobile-logo-row .wm-mobile-logo-link {
-    display: flex !important;
-    width: 100% !important;
-    justify-content: center !important;
-  }
-
-  .wm-mobile-top {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    position: relative !important;
-    width: 100% !important;
-    height: 44px !important;
-    margin-bottom: 8px !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-  }
-
-  .wm-mobile-left {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 8px !important;
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-  }
-
-  .wm-mobile-toggle {
-    background: transparent !important;
-    border: none !important;
-    color: #121316 !important;
-    padding: 4px !important;
-    margin: 0 !important;
-    cursor: pointer !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 36px !important;
-    min-width: 36px !important;
-    height: 36px !important;
-    flex: 0 0 36px !important;
-    position: relative !important;
-    z-index: 2 !important;
-  }
-
-  .wm-mobile-logo-link {
-    text-decoration: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    height: 48px !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .wm-mobile-logo .wm-header__logo-text {
-    font-size: 2.8rem !important;
-    line-height: 1 !important;
-    margin: 0 !important;
-  }
-
-  .wm-mobile-logo-img {
-    display: block !important;
-    width: min(120px, calc(100vw - 190px)) !important;
-    max-width: 100% !important;
-    max-height: 32px !important;
-    height: auto !important;
-    object-fit: contain !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 60px;
+    margin-bottom: 6px;
   }
 
   .wm-mobile-logo {
-    height: 48px !important;
-    max-height: 48px !important;
-    overflow: hidden !important;
-    align-items: center !important;
-    position: absolute !important;
-    left: 50% !important;
-    top: 8px !important;
-    transform: translateX(-50%) !important;
-    z-index: 1 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .wm-mobile-logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-decoration: none;
+  }
+
+  .wm-mobile-logo-img {
+    display: block;
+    width: 250px;
+    max-width: 70vw;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .wm-mobile-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 44px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+  }
+
+  .wm-mobile-left {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .wm-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    padding: 4px;
+    margin: 0;
+    color: #121316;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
   }
 
   .wm-mobile-actions {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 8px !important;
-    flex-shrink: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
   }
 
   .wm-mobile-action-btn {
-    position: relative !important;
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 50% !important;
-    background: #F4F5FE !important;
-    color: #121316 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-decoration: none !important;
-    flex-shrink: 0 !important;
-    transition: all 180ms ease !important;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #F4F5FE;
+    color: #121316;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: all 180ms ease;
   }
 
   .wm-mobile-action-btn:hover {
-    background: #121316 !important;
-    color: #FFFFFF !important;
+    background: #121316;
+    color: #FFFFFF;
   }
 
   .wm-mobile-cart-btn {
-    position: relative !important;
-    width: 36px !important;
-    height: 36px !important;
-    border-radius: 50% !important;
-    background: #121316 !important;
-    color: #FFFFFF !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-decoration: none !important;
-    flex-shrink: 0 !important;
-    box-shadow: 0 4px 12px rgba(18, 19, 22, 0.15) !important;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #121316;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(18, 19, 22, 0.15);
   }
 
   .wm-mobile-cart-btn .wm-cart-btn__badge {
-    position: absolute !important;
-    top: -3px !important;
-    right: -3px !important;
-    background: #E05A2B !important;
-    color: #FFFFFF !important;
-    font-size: 0.6875rem !important;
-    font-weight: 800 !important;
-    min-width: 18px !important;
-    height: 18px !important;
-    border-radius: 50% !important;
-    border: 2px solid #FFFFFF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background: #E05A2B;
+    color: #FFFFFF;
+    font-size: 0.6875rem;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .wm-mobile-search-row {
-    width: 100% !important;
+    width: 100%;
   }
 
   /* TABLET HEADER: keep the desktop navigation while reducing fixed-width pressure */
@@ -1295,32 +1173,20 @@
   /* NARROW PHONES: reserve space for actions before sizing the logo */
   @media screen and (max-width: 480px) {
     .wm-header__mobile {
-      padding-left: 10px !important;
-      padding-right: 10px !important;
-    }
-
-    .wm-mobile-top {
-      gap: 4px !important;
-    }
-
-    .wm-mobile-left {
-      gap: 4px !important;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     .wm-mobile-actions {
-      gap: 4px !important;
+      gap: 4px;
     }
 
     .wm-mobile-action-btn,
     .wm-mobile-cart-btn {
-      width: 32px !important;
-      height: 32px !important;
+      width: 32px;
+      height: 32px;
     }
 
-    .wm-mobile-logo-img {
-      width: min(108px, calc(100vw - 170px)) !important;
-      max-height: 28px !important;
-    }
   }
   </style>
 

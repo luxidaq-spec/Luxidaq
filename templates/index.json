@@ -183,6 +183,14 @@
         "subtitle": "Browse our latest fashion and trending collections."
       }
     },
+    "new_arrivals": {
+      "type": "new-arrivals",
+      "settings": {
+        "title": "New Arrivals",
+        "subtitle": "Discover the latest additions to Luxidaq.",
+        "collection": "all"
+      }
+    },
     "trending_products": {
       "type": "trending-products",
       "settings": {
@@ -432,8 +440,8 @@
         "secondary_button_url": "/collections",
         "special_collection": "special-offers",
         "products_heading": "Shop the current special offers",
-        "countdown_end": "2026-12-31T23:59:59",
-        "show_timer": false,
+        "countdown_end": "",
+        "show_timer": true,
         "bg_style": "dark_mesh",
         "overlay_opacity": 55,
         "min_height": 500,
@@ -459,6 +467,7 @@
     "hero_banner",
     "trust_bar",
     "featured_collections",
+    "new_arrivals",
     "trending_products",
     "marquee_ticker",
     "dual_banners",
