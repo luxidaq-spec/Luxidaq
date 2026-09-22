@@ -29,6 +29,14 @@
     assign has_sale = true
   endif
 
+  assign offer_compare_at_price = product.compare_at_price
+  if show_offer_savings and product.price > 0
+    if offer_compare_at_price == blank or offer_compare_at_price <= product.price
+      assign offer_compare_at_price = product.price | times: 125 | divided_by: 100
+      assign has_sale = true
+    endif
+  endif
+
   # Fallback Unsplash Luxury Catalog Photos for preview
   assign fallback_urls = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80" | split: ','
   assign fallback_hovers = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&auto=format&fit=crop&q=80" | split: ','
@@ -121,7 +129,11 @@
         {%- if product.price > 0 -%}
           <span class="ds-card-app__price">{{ product.price | money }}</span>
           {%- if has_sale -%}
-            <span class="ds-card-app__compare">{{ product.compare_at_price | money }}</span>
+            <span class="ds-card-app__compare">{{ offer_compare_at_price | money }}</span>
+            {%- if show_offer_savings -%}
+              {%- assign saved_amount = offer_compare_at_price | minus: product.price -%}
+              <span class="ds-card-app__savings">Save {{ saved_amount | money }}</span>
+            {%- endif -%}
           {%- endif -%}
         {%- else -%}
           {%- assign mock_prices = "$49.99,$59.99,$69.99,$39.99,$44.99,$34.99,$54.99,$29.99" | split: ',' -%}
@@ -368,6 +380,14 @@
   font-weight: 400;
   color: #8E95A2;
   text-decoration: line-through;
+}
+
+.ds-card-app__savings {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #075542;
+  white-space: nowrap;
 }
 
 /* Vibrant Orange Add Button inside Split Pill */

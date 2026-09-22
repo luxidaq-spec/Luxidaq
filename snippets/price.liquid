@@ -35,6 +35,17 @@
     assign money_price_max = price_max | money_with_currency
   endif
 
+  assign special_offer_product = false
+  if product.tags contains 'special-offer'
+    assign special_offer_product = true
+  endif
+
+  if special_offer_product and price > 0
+    if compare_at_price == blank or compare_at_price <= price
+      assign compare_at_price = price | times: 125 | divided_by: 100
+    endif
+  endif
+
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
@@ -107,6 +118,10 @@
         <span class="price-item price-item--sale price-item--last">
           {{ money_price }}
         </span>
+        {%- if special_offer_product and compare_at_price > price -%}
+          {%- assign savings_amount = compare_at_price | minus: price -%}
+          <span class="price-item price-item--savings">Save {{ savings_amount | money }}</span>
+        {%- endif -%}
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}

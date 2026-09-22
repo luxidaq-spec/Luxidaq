@@ -491,6 +491,10 @@
             >
 
               {% assign skip_card_product_styles = false %}
+              {% assign show_offer_savings = false %}
+              {% if collection.handle == 'special-offers' %}
+                {% assign show_offer_savings = true %}
+              {% endif %}
 
               {% for product in collection.products %}
 
@@ -510,7 +514,8 @@
 
                     {% render 'product-card',
                       product: product,
-                      lazy: lazy_load
+                      lazy: lazy_load,
+                      show_offer_savings: show_offer_savings
                     %}
 
                   </div>
